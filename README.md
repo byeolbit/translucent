@@ -3,7 +3,7 @@
 ![Title image]
 (https://github.com/byeolbit/TransparentCard/blob/master/title.png?raw=true)
 
-Demo : http://byeolbit.com/demo/TransparentCard/Index.html
+Demo : https://byeolbit.github.io/tc_demo
 
 ## Update Note
 ### Little improvements - Jan 23 13:26
