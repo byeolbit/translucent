@@ -1,7 +1,8 @@
 # TransparentCard
-Transparent plastic card theme made with CSS, jQuery.
+### Transparent plastic card theme made with CSS, jQuery.
+![Title image]
+(https://github.com/byeolbit/TransparentCard/blob/master/title.png?raw=true)
 
-You can drag & drop the card.
 Demo : http://byeolbit.com/demo/TransparentCard/Index.html
 
 ## Update Note
