@@ -6,6 +6,12 @@
 Demo : https://byeolbit.github.io/tc_demo
 
 ## Update Note
+### Little changes Jan 24 00:08
+- Drag & Drop works on mobile!
+- Drop shadow animation during move the card.
+- Card color preset class added. You can add color by add these classes to card-content
+- CSS code clining.
+
 ### Little improvements - Jan 23 13:26
 - If background-attachment is 'fixed',the tracking of background become smoother.
 - Boundary limitation added on demo.
