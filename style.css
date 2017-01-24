@@ -4,22 +4,22 @@
     background-repeat: no-repeat;
     background-attachment: inherit;
     height: 95vh;
-    width: 95vw;
     margin-left: auto;
     margin-right: auto;
+    width: 95vw;
 }
 
 .card {
+    border: rgba(200,200,200,0.5) solid 1px;
+    border-radius: 10px;
+    box-shadow: 0px 20px 20px rgba(0,0,0,0.5);
+    cursor: move;
     height: 500px;
     margin-left : auto;
     margin-right : auto;
     overflow: hidden;
-    border-radius: 10px;
-    border: rgba(200,200,200,0.5) solid 1px;
-    box-shadow: 0px 20px 20px rgba(0,0,0,0.5);
-    transition : box-shadow 0.4s ease;
     position: relative;
-    cursor: move;
+    transition : box-shadow 0.4s ease;
     width: 350px;
 }
 
@@ -55,7 +55,6 @@
     font-weight: 100;
     margin-top:40px;
     width: inherit;
-    
 }
 
 .content-image {
