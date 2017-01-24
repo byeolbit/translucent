@@ -59,6 +59,26 @@ $(document).ready(function(){
         transparentCard($card, $cardBg, $targetBg, filterValue);
     });
 
+    var $cb1 = $('#cb1'),
+        $cb2 = $('#cb2'),
+        $cb3 = $('#cb3'),
+        $cb4 = $('#cb4'),
+        $cc = $('.card-contents');
+
+    $cb1.click(function(){
+        $cc.css('background-color','rgba(255,255,255,0.4)');
+    });
+    $cb2.click(function(){
+        $cc.css('background-color','rgba(120,120,120,0.4)');
+    });
+    $cb3.click(function(){
+        $cc.css('background-color','rgba(30,30,30,0.7)');
+    });
+    $cb4.click(function(){
+        $cc.css('background-color','rgba(0,0,0,0)');
+    });
+
+
     cardInit($card, $cardBg, $targetBg, filterValue);
     transparentCard($card, $cardBg, $targetBg, filterValue);
 

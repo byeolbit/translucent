@@ -1,77 +1,134 @@
+body {
+    margin: 0;
+}
+
 .contents{
     background: url("https://upload.wikimedia.org/wikipedia/commons/6/64/ChicagoFromCellularField.jpg");
-    background-size: 100vw !important;
-    background-repeat: no-repeat;
+    background-size: 110vw !important;
+    background-repeat: repeat-y !important;
     background-attachment: inherit;
-    height: 95vh !important;
-    width: 95vw !important;
+    height: 100vh;
     margin-left: auto;
     margin-right: auto;
+    margin-top:50px;
+    width: 100vw;
 }
 
 .card {
-    width: 350px;
-    height: 500px;
+    border: rgba(200,200,200,0.5) solid 1px;
+    border-radius: 10px;
+    box-shadow: 0px 20px 20px rgba(0,0,0,0.5);
+    cursor: move;
+    height: 520px;
     margin-left : auto;
     margin-right : auto;
     overflow: hidden;
-    border-radius: 10px;
-    border: rgba(200,200,200,0.5) solid 1px;
-    box-shadow: 0px 20px 20px rgba(0,0,0,0.5);
+    position: relative;
+    transition : box-shadow 0.4s ease;
+    width: 350px;
+}
+
+.card:active {
+    box-shadow: 0px 40px 30px rgba(0,0,0,0.7);
 }
 
 .card-contents {
-    width: inherit;
+    color:white;
+    font-family: sans-serif;
     height: inherit;
     position: absolute;
-    z-index: 2;
-    color:white;
     text-align: center;
-    font-family: sans-serif;
     text-shadow: 0px 4px 4px rgba(0,0,0,0.6);
+    width: inherit;
+    z-index: 2;
+}
+
+.card-color-clear {
+    background-color:rgba(255,255,255,1);
+}
+
+.card-color-white {
+    background-color:rgba(255,255,255,0.4);
+}
+
+.card-color-grey {
+    background-color:rgba(120,120,120,0.4);
+}
+
+.card-color-black {
+    background-color:rgba(30,30,30,0.7);
 }
 
 .card-contents h1 {
-    font-weight: 100;
     font-size: 2.5em;
-    width: inherit;
+    font-weight: 100;
     margin-top:40px;
-    
+    width: inherit;
 }
 
 .content-image {
-    width:200px;
-    height:200px;
-    margin-top:20px;
-    margin-bottom:20px;
-    border-radius: 100px;
     background: url("https://c1.staticflickr.com/5/4106/5197584230_e41bd7f828_b.jpg");
     background-size: 140%;
+    border-radius: 100px;
+    box-shadow: 0px 4px 4px rgba(0,0,0,0.6);
+    height:200px;
+    margin-bottom:20px;
+    margin-top:20px;
     margin-left: auto;
     margin-right: auto;
-    box-shadow: 0px 4px 4px rgba(0,0,0,0.6);
+    width:200px;
 }
 
 .card-bg {
     z-index: 1;
 }
 
-.text-contents {
-    font-size:0.8em;
-    margin-top:20px;
-    padding: 10px 10px 10px 10px;
-    line-height:1.5em;
-    width:310px;
+.color-button-container {
+    width: 80px;
+    height: 20px;
+    padding-top: 16px;
     margin-left: auto;
     margin-right: auto;
+    margin-bottom: -36px;
+}
+
+.color-button {
+    border-radius: 6px;
+    cursor: pointer;
+    height: 12px;
+    width: 12px;
+    margin-left: 2px;
+    margin-right: 2px;
+    display: inline-block;
+}
+
+.text-contents {
+    font-size:0.8em;
+    line-height:1.5em;
+    padding: 5px 10px 5px 10px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top:20px;
+    width:310px;
+}
+
+.auto-graph {
+    background-color:rgb(40,40,40);
+    font-size:0.8em;
+    margin-bottom:4px;
+    margin-top:4px;
+    padding-top:8px;
+    padding-bottom:8px;
 }
 
 .control-panel {
-    background-color: rgba(30,30,30,0.8);
+    background-color: rgba(50,50,50,1);
     color : rgb(250,250,250);
-    width:100px;
+    display:block;
+    width:100vw;
+    height:50px;
     position:fixed;
-    padding:10px 10px 10px 10px;
+    padding: 0;
     top:0;
     right: 0;
     z-index: 3;
@@ -79,14 +136,13 @@
 
 .control-panel p {
     font-size:1.2em;
+    margin: 0.5em;
 }
 
 .control-panel p input {
     width: 90px;
-    margin-bottom:10px;
 }
 .control-panel p button {
     width: 100px;
     height: 30px;
-    margin-bottom:10px;
 } 
