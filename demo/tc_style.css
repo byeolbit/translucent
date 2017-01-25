@@ -121,6 +121,11 @@ body {
     padding-bottom:8px;
 }
 
+.auto-graph a {
+    color: white;
+    text-decoration: none;
+}
+
 .control-panel {
     background-color: rgba(50,50,50,1);
     color : rgb(250,250,250);
