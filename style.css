@@ -1,12 +1,16 @@
+body {
+    margin: 0;
+}
+
 .contents{
     background: url("https://upload.wikimedia.org/wikipedia/commons/6/64/ChicagoFromCellularField.jpg");
-    background-size: 100vw;
-    background-repeat: no-repeat;
+    background-size: 110vw;
+    background-repeat: repeat-y;
     background-attachment: inherit;
-    height: 95vh;
+    height: 100vh;
     margin-left: auto;
     margin-right: auto;
-    width: 95vw;
+    width: 100vw;
 }
 
 .card {
@@ -36,6 +40,10 @@
     text-shadow: 0px 4px 4px rgba(0,0,0,0.6);
     width: inherit;
     z-index: 2;
+}
+
+.card-color-clear {
+    background-color:rgba(255,255,255,1);
 }
 
 .card-color-white {
