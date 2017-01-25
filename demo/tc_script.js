@@ -1,10 +1,40 @@
+/* 
+ * TransparentCard design demo    
+ * Sanggyeong Jo                    
+ * Jan 24. 2017                     
+ *                                  
+ * Contacts                         
+ * Github : github.com/byeolbit     
+ * Email : info@byeolbit.com        
+ *         sanggyeong.jo@gmail.com
+ *
+ * You can find this project at https://github.com/byeolbit/transparentCard
+ */  
+
+/************************************
+ * Setting values                   *
+ *                                  *
+ * cardElement(string)              *
+ *  - Id of card element            *
+ * bgElement(string)                *
+ *  - Id or class of background     *
+ * boundaryCheck(boolean)           *
+ *  - Lock a card in background     *
+ * filterValue(int)                 *
+ *  - Amount of blur                *
+ ************************************/
+
+var cardElement = '#t-card',
+    bgElement = '.contents',
+    boundaryCheck = true,
+    filterValue = 10;
+
 $(document).ready(function(){
-    var $card = $('#t-card'),
-        $cardBg = $('#t-card .card-bg'),
-        $targetBg = $('.contents'),
-        bgAttach = false;
-        boundaryCheck = true;
-        filterValue = 10; //this decides amount of blur
+
+    var $card = $(cardElement),
+        $cardBg = $(cardElement + ' .card-bg'),
+        $targetBg = $(bgElement),
+        bgAttach;
     
     var $bBg = $('#bBg'),
         $bBlur = $('#bBlur'),
@@ -16,25 +46,30 @@ $(document).ready(function(){
                     'url("http://www.chicagosouthloophotel.com/resourcefiles/homeimages/chicago-south-loop-hotel-home1-top.jpg")',
                     'url("http://blog.bestamericanpoetry.com/.a/6a00e54fe4158b8833019aff11d17e970c-pi")'
                     ];
+
+    if( $targetBg.css('background-attachment') == 'fixed' )
+        bgAttach = true;
+    else
+        bgAttach = false;
     
     $bNum.attr('placeholder',filterValue);
 
     $bBlur.click(function(){
         filterValue = $bNum.val();
         cardInit($card, $cardBg, $targetBg, filterValue);
-        transparentCard($card, $cardBg, $targetBg, filterValue);
     });
 
     $bBg.click(function(){
-        $targetBg.css('background',bgImages[Math.floor((Math.random() * 10))%3]);
+        $targetBg.css('background',
+                      bgImages[Math.floor((Math.random() * 10))%3]);
         cardInit($card, $cardBg, $targetBg, filterValue);
-        transparentCard($card, $cardBg, $targetBg, filterValue);
     });
 
     $bFix.click(function(){
         if (!bgAttach){
             $targetBg.css('background-attachment','fixed');
-            $cardBg.css('background-position',($targetBg.css('background-position')));
+            $cardBg.css('background-position',
+                        $targetBg.css('background-position'));
             $bFix.text('bgFixOff');
         }
         else {
@@ -45,7 +80,6 @@ $(document).ready(function(){
         bgAttach = !bgAttach;
         
         cardInit($card, $cardBg, $targetBg, filterValue);
-        transparentCard($card, $cardBg, $targetBg, filterValue);
     });
 
     $bTog.click(function(){
@@ -80,12 +114,10 @@ $(document).ready(function(){
 
 
     cardInit($card, $cardBg, $targetBg, filterValue);
-    transparentCard($card, $cardBg, $targetBg, filterValue);
 
     var $window = $(window);
     $window.resize(function() {
         cardInit($card, $cardBg, $targetBg, filterValue);
-        transparentCard($card, $cardBg, $targetBg, filterValue);
     });
 
     $card.draggable({
@@ -115,6 +147,8 @@ function cardInit($card, $cardBg, $targetBg, filterValue){
     $cardBg.css('margin-top','-'+(filterValue)+'px');
     $cardBg.height(cardHeight+filterValue*2);
     $cardBg.width(cardWidth+filterValue*2);
+
+    transparentCard($card, $cardBg, $targetBg, filterValue);
 }
 
 function transparentCard($card, $cardBg, $targetBg, filterValue){
@@ -122,11 +156,13 @@ function transparentCard($card, $cardBg, $targetBg, filterValue){
         bgOffset = $targetBg.offset(),
         cardOffset = $card.offset();
 
-    //When using blur filter, edge of background become fade.
-    //So, solution is making bigger background area and adjust offset to hide edges.
     $cardBg.css('background-attachment',bgAtt);
     if (bgAtt != 'fixed')
-        $cardBg.css('background-position',(bgOffset.left-(cardOffset.left-filterValue))+'px '+(bgOffset.top-(cardOffset.top-filterValue))+'px');
+        $cardBg.css('background-position',
+                    (bgOffset.left-
+                    (cardOffset.left-filterValue))+'px '+
+                    (bgOffset.top-
+                    (cardOffset.top-filterValue))+'px');
 }
 
 function boundaryLimit($card, $targetBg, enable){

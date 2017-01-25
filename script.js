@@ -1,19 +1,50 @@
+/* 
+ * TransparentCard design           
+ * Sanggyeong Jo                    
+ * Jan 24. 2017                     
+ *                                  
+ * Contacts                         
+ * Github : github.com/byeolbit     
+ * Email : info@byeolbit.com        
+ *         sanggyeong.jo@gmail.com
+ *
+ * You can find this project at https://github.com/byeolbit/transparentCard
+ */  
+
+/************************************
+ * Setting values                   *
+ *                                  *
+ * cardElement(string)              *
+ *  - Id of card element            *
+ * bgElement(string)                *
+ *  - Id or class of background     *
+ * boundaryCheck(boolean)           *
+ *  - Lock a card in background     *
+ * filterValue(int)                 *
+ *  - Amount of blur                *
+ ************************************/
+
+var cardElement = '#t-card',
+    bgElement = '.contents',
+    boundaryCheck = true,
+    filterValue = 10;
+
 $(document).ready(function(){
-    var $card = $('#t-card'),
-        $cardBg = $('#t-card .card-bg'),
-        $targetBg = $('.contents'),
-        boundaryCheck = true;
-        filterValue = 10; //this decides amount of blur
 
+    var $card = $(cardElement),
+        $cardBg = $(cardElement + ' .card-bg'),
+        $targetBg = $(bgElement),
+        $window = $(window),
+        bgAttach;
+    
     cardInit($card, $cardBg, $targetBg, filterValue);
-    transparentCard($card, $cardBg, $targetBg, filterValue);
 
-    var $window = $(window);
+    //Card background reacts to change of window size
     $window.resize(function() {
         cardInit($card, $cardBg, $targetBg, filterValue);
-        transparentCard($card, $cardBg, $targetBg, filterValue);
     });
 
+    //If you don't want drag&drop, you can delete this.
     $card.draggable({
         drag:function(event, ui){
             boundaryLimit($card, $targetBg, boundaryCheck);
@@ -23,9 +54,9 @@ $(document).ready(function(){
             boundaryLimit($card, $targetBg, boundaryCheck);
         }
     });
-
 });
 
+//Initialize card.
 function cardInit($card, $cardBg, $targetBg, filterValue){
     var bgImg = $targetBg.css('background-image'),
         bgRepeat = $targetBg.css('background-repeat'),
@@ -41,21 +72,29 @@ function cardInit($card, $cardBg, $targetBg, filterValue){
     $cardBg.css('margin-top','-'+(filterValue)+'px');
     $cardBg.height(cardHeight+filterValue*2);
     $cardBg.width(cardWidth+filterValue*2);
+
+    transparentCard($card, $cardBg, $targetBg, filterValue);
 }
 
+// Blurred background tracks offset of card.
 function transparentCard($card, $cardBg, $targetBg, filterValue){
     var bgAtt = $targetBg.css('background-attachment'),
         bgOffset = $targetBg.offset();
         cardOffset = $card.offset(),
 
-    //When using blur filter, edge of background become fade.
-    //So, solution is making bigger background area and adjust offset to hide edges.
     $cardBg.css('background-attachment',bgAtt);
-    if (bgAtt != 'fixed')
-        $cardBg.css('background-position',(bgOffset.left-(cardOffset.left-filterValue))+'px '+(bgOffset.top-(cardOffset.top-filterValue))+'px');
+
+    // If background-attachment is fixed, don't need to track the card offset.
+    if (bgAtt != 'fixed') {
+        $cardBg.css('background-position',
+                    (bgOffset.left-(cardOffset.left-filterValue))+'px '+
+                    (bgOffset.top-(cardOffset.top-filterValue))+'px');
+    }
 }
 
+// This prevents that card go outside of background element.
 function boundaryLimit($card, $targetBg, enable){
+    // If setting value is false, exit function.
     if (!enable) return;
 
     var cardLeft = $card.offset().left,
@@ -68,16 +107,19 @@ function boundaryLimit($card, $targetBg, enable){
         topBoundary = $targetBg.offset().top,
         bottomBoundary = topBoundary+$targetBg.height();
 
-    if (cardLeft <= leftBoundary)
+    if (cardLeft <= leftBoundary) {
         $card.offset({left : leftBoundary});
+    }
     
-    if (cardRight >= rightBoundary)
+    if (cardRight >= rightBoundary) {
         $card.offset({left : rightBoundary-$card.width()});
+    }
     
-    if (cardTop <= topBoundary)
+    if (cardTop <= topBoundary) {
         $card.offset({top : topBoundary});
+    }
     
-    if (cardBottom >= bottomBoundary)
+    if (cardBottom >= bottomBoundary) {
         $card.offset({top : bottomBoundary-$card.height()});
-    
+    }
 }
