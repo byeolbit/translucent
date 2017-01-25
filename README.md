@@ -6,7 +6,11 @@
 Demo : https://byeolbit.github.io/tc_demo
 
 ## Update Note
-### Little changes Jan 24 00:08
+### Demo updates - Jan 24 01:38
+- [Demo] Color change buttons are added at the top of the card.
+- [Demo] Adjusting interface(still working)
+
+### Little changes - Jan 24 00:08
 - Drag & Drop works on mobile!
 - Drop shadow animation during move the card.
 - Card color preset class added. You can add color by add these classes to card-content
