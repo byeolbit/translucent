@@ -1,11 +1,18 @@
 # TransparentCard
-### Transparent plastic card theme made with CSS, jQuery.
+### Transparent plastic card - jQuery plugin.
 ![Title image]
-(https://github.com/byeolbit/TransparentCard/blob/master/title.png?raw=true)
+(https://github.com/byeolbit/byeolbit.github.io/blob/master/title.png?raw=true)
 
 Demo : https://byeolbit.github.io/tc_demo
 
 ## Update Note
+
+### Change to jQuery plugin - Jan 27 01:34
+- Prepairing for release.
+- Combine css into script.
+- Demo changed to sample. Demo site still working.
+- Now it works at Edge browser!
+- Little optimization.
 
 ### Tidy - Jan 25 00:44
 - Tidy code of script.
