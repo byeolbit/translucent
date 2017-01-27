@@ -126,7 +126,7 @@
                     stop:function(event, ui){
                         if (shadow){
                             $card.css({
-                                'box-shadow' : '0px 40px 30px rgba(0,0,0,0.7)'
+                                'box-shadow' : '0px 20px 20px rgba(0,0,0,0.5)'
                             });
                         }
                         applyTransparent($card, $cardBg, $cardCt,
