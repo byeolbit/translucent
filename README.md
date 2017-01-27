@@ -1,11 +1,18 @@
 # TransparentCard
-### Transparent plastic card theme made with CSS, jQuery.
+### Transparent plastic card - jQuery plugin.
 ![Title image]
-(https://github.com/byeolbit/TransparentCard/blob/master/title.png?raw=true)
+(https://github.com/byeolbit/byeolbit.github.io/blob/master/title.png?raw=true)
 
 Demo : https://byeolbit.github.io/tc_demo
 
 ## Update Note
+
+### Change to jQuery plugin - Jan 27 01:34
+- Prepairing for release.
+- Combine css into script.
+- Demo changed to sample. Demo site still working.
+- Now it works at Edge browser!
+- Little optimization.
 
 ### Tidy - Jan 25 00:44
 - Tidy code of script.
@@ -27,51 +34,39 @@ Demo : https://byeolbit.github.io/tc_demo
 - Boundary limitation added on demo.
 - Now, background is free from body tag.
 
-## How to use (updating)
+## Usage (updating)
+Dependencies
+ - jQuery
+ - jQuery-UI
 
-### Setting
-```javascript
-var cardElement = 'your card id',
-    bgElement = 'your background element id or class',
-    boundaryCheck = true or false,
-    filterValue = 10;
-```
-
-Example(default setting) : 
-```javascript
-var cardElement = '#t-card',
-    bgElement = '.contents',
-    boundaryCheck = true,
-    filterValue = 10;
-```
-
-### Applying color to card
-
-#### 1. Append color preset class to "card-contents" class.
-
-There are four color preset classes.
-* card-color-white
-* card-color-grey
-* card-color-black
-* card-color-clear
-
-Example(apply white color) :
+HTML - head
 ```html
-<div class="card-contents card-color-white">
+<script src="jquery.ui.transparentcard.min.js"></script>
+```
+HTML - card dom structure
+
+    card-wrapper
+        tpc-card-background-container
+            tpc-card-bg
+        tpc-card
+            tpc-card-contents
+
+JavaScript
+```javascript
+$('card-wrapper id here').transparentCard('background id or class here',{
+    filterValue : 5,     // int
+    cardColor : 'clear', // preset color or your own color
+    draggable : true,    // true or false
+    shadow : true        // true or false
+});
 ```
 
-#### 2. Append background-color to "card-contents" class in css
-
+CSS
 ```css
-.card-contents {
-    background-color: rgba(255,255,255,0.4);
-    color:white;
-    font-family: sans-serif;
-    height: inherit;
-    position: absolute;
-    text-align: center;
-    text-shadow: 0px 4px 4px rgba(0,0,0,0.6);
-    width: inherit;
-    z-index: 2;
+.tpc-card {
+    /* your card width, height here */
+}
+.tpc-card-contents {
+    /* your cumstom style here */
 }
 ```
