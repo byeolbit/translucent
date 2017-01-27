@@ -1,0 +1,71 @@
+body {
+    margin: 0;
+}
+
+.contents{
+    background: url("https://upload.wikimedia.org/wikipedia/commons/6/64/ChicagoFromCellularField.jpg");
+    background-size: 110vw !important;
+    background-repeat: repeat-y !important;
+    background-attachment: inherit;
+    height: 100vh;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100vw;
+}
+.tpc-card {
+    height: 520px;
+    width: 350px;
+}
+.tpc-card-contents {
+    color:white;
+    font-family: sans-serif;
+    height: inherit;
+    position: absolute;
+    text-align: center;
+    text-shadow: 0px 4px 4px rgba(0,0,0,0.6);
+    width: inherit;
+}
+
+.tpc-card-contents h1 {
+    font-size: 2.5em;
+    font-weight: 100;
+    margin-top:20px;
+    width: inherit;
+}
+
+.content-image {
+    background: url("https://c1.staticflickr.com/5/4106/5197584230_e41bd7f828_b.jpg");
+    background-size: 140%;
+    border-radius: 100px;
+    box-shadow: 0px 4px 4px rgba(0,0,0,0.6);
+    height:200px;
+    margin-bottom:20px;
+    margin-top:20px;
+    margin-left: auto;
+    margin-right: auto;
+    width:200px;
+}
+
+.text-contents {
+    font-size:0.8em;
+    line-height:1.5em;
+    padding: 5px 10px 5px 10px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top:20px;
+    width:310px;
+}
+
+.auto-graph {
+    background-color:rgb(40,40,40);
+    font-size:0.8em;
+    margin-bottom:4px;
+    margin-top:4px;
+    padding-top:8px;
+    padding-bottom:8px;
+}
+
+.auto-graph a {
+    color: white;
+    text-decoration: none;
+}
