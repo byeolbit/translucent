@@ -34,51 +34,18 @@ Demo : https://byeolbit.github.io/tc_demo
 - Boundary limitation added on demo.
 - Now, background is free from body tag.
 
-## How to use (updating)
+## Usage (updating)
+Insert below code to `<head>`
 
-### Setting
-```javascript
-var cardElement = 'your card id',
-    bgElement = 'your background element id or class',
-    boundaryCheck = true or false,
-    filterValue = 10;
-```
-
-Example(default setting) : 
-```javascript
-var cardElement = '#t-card',
-    bgElement = '.contents',
-    boundaryCheck = true,
-    filterValue = 10;
-```
-
-### Applying color to card
-
-#### 1. Append color preset class to "card-contents" class.
-
-There are four color preset classes.
-* card-color-white
-* card-color-grey
-* card-color-black
-* card-color-clear
-
-Example(apply white color) :
 ```html
-<div class="card-contents card-color-white">
+<script src="jquery.ui.transparentcard.min.js"></script>
 ```
 
-#### 2. Append background-color to "card-contents" class in css
-
-```css
-.card-contents {
-    background-color: rgba(255,255,255,0.4);
-    color:white;
-    font-family: sans-serif;
-    height: inherit;
-    position: absolute;
-    text-align: center;
-    text-shadow: 0px 4px 4px rgba(0,0,0,0.6);
-    width: inherit;
-    z-index: 2;
-}
+```javascript
+$('card-wrapper id here').transparentCard('background id or class here',{
+    filterValue : 5,
+    cardColor : 'clear',
+    draggable : true,
+    shadow : true
+});
 ```
