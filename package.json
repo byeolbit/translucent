@@ -36,9 +36,7 @@
   "homepage": "https://byeolbit.github.io/translucent",
   "dependencies": {
     "jquery": ">=1.6",
-    "jquery.ui.core": ">=1.10.0",
-    "jquery.ui.widget": ">=1.10.0",
-    "jquery.ui.mouse": ">=1.10.0"
+    "jquery-ui": ">=1.10.0"
   },
   "main": "index.js",
   "scripts": {
