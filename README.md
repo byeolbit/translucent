@@ -35,17 +35,38 @@ Demo : https://byeolbit.github.io/tc_demo
 - Now, background is free from body tag.
 
 ## Usage (updating)
-Insert below code to `<head>`
+Dependencies
+ - jQuery
+ - jQuery-UI
 
+HTML - head
 ```html
 <script src="jquery.ui.transparentcard.min.js"></script>
 ```
+HTML - card dom structure
 
+    card-wrapper
+        tpc-card-background-container
+            tpc-card-bg
+        tpc-card
+            tpc-card-contents
+
+JavaScript
 ```javascript
 $('card-wrapper id here').transparentCard('background id or class here',{
-    filterValue : 5,
-    cardColor : 'clear',
-    draggable : true,
-    shadow : true
+    filterValue : 5,     // int
+    cardColor : 'clear', // preset color or your own color
+    draggable : true,    // true or false
+    shadow : true        // true or false
 });
+```
+
+CSS
+```css
+.tpc-card {
+    /* your card width, height here */
+}
+.tpc-card-contents {
+    /* your cumstom style here */
+}
 ```
