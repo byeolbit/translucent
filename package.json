@@ -16,17 +16,9 @@
     "jQuery"
   ],
   "version": "1.0.0",
-  "author": {
-    "name": "Sanggyeong Jo",
-    "email": "sanggyeong.jo@gmil.com",
-    "url": "https://github.com/byeolbit"
-  },
+  "author": "Sanggyeong Jo <sanggyeong.jo@gmil.com> (https://github.com/byeolbit)",
   "maintainers": [
-        {
-            "name": "Sanggyeong Jo",
-            "email": "sanggyeong.jo@gmil.com",
-            "url": "https://github.com/byeolbit"
-        }
+    "Sanggyeong Jo <sanggyeong.jo@gmil.com> (https://github.com/byeolbit)"
   ],
   "licenses": [
     {
@@ -34,13 +26,23 @@
       "url": "https://raw.githubusercontent.com/byeolbit/translucent/master/LICENSE"
     }
   ],
-  "repository": "https://github.com/byeolbit/translucent",
-  "bugs": "https://github.com/byeolbit/translucent/issues",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/byeolbit/translucent.git"
+  },
+  "bugs": {
+    "url": "https://github.com/byeolbit/translucent/issues"
+  },
   "homepage": "https://byeolbit.github.io/translucent",
   "dependencies": {
     "jquery": ">=1.6",
-    "jquery.ui.core" : "1.11.1",
-    "jquery.ui.widget" : "1.11.1",
-    "jquery.ui.mouse" : "1.11.1"
-  }
+    "jquery.ui.core": ">=1.10.0",
+    "jquery.ui.widget": ">=1.10.0",
+    "jquery.ui.mouse": ">=1.10.0"
+  },
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "license": "MIT"
 }

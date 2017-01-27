@@ -39,8 +39,8 @@
   "download" : "https://github.com/byeolbit/translucent/archive/master.zip",
   "dependencies": {
     "jquery": ">=1.6",
-    "jquery.ui.core" : "1.11.1",
-    "jquery.ui.widget" : "1.11.1",
-    "jquery.ui.mouse" : "1.11.1"
+    "jquery.ui.core" : ">=1.10.0",
+    "jquery.ui.widget" : ">=1.10.0",
+    "jquery.ui.mouse" : ">=1.10.0"
   }
 }
