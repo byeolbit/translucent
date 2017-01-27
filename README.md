@@ -1,4 +1,4 @@
-# Translucent.js
+# Translucent
 ### Transparent plastic card - jQuery plugin.
 ![Title image]
 (https://github.com/byeolbit/byeolbit.github.io/blob/master/title.png?raw=true)
