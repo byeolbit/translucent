@@ -1,4 +1,4 @@
-# TransparentCard
+# Translucent.js
 ### Transparent plastic card - jQuery plugin.
 ![Title image]
 (https://github.com/byeolbit/byeolbit.github.io/blob/master/title.png?raw=true)
@@ -41,7 +41,7 @@ Dependencies
 
 HTML - head
 ```html
-<script src="jquery.ui.transparentcard.min.js"></script>
+<script src="jquery.ui.translucent.min.js"></script>
 ```
 HTML - card dom structure
 
@@ -53,7 +53,7 @@ HTML - card dom structure
 
 JavaScript
 ```javascript
-$('card-wrapper id here').transparentCard('background id or class here',{
+$('card-wrapper id here').translucent('background id or class here',{
     filterValue : 5,     // int
     cardColor : 'clear', // preset color or your own color
     draggable : true,    // true or false
