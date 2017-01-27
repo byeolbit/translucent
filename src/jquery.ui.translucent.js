@@ -1,6 +1,6 @@
 /* 
- * jQuery UI TransparentCard 0.1
- * Copyright 2017, Sanggyeong Jo
+ * jQuery UI translucent 1.0
+ * Copyright (c) 2017, Sanggyeong Jo
  * Lisensed under the MIT
  * 
  * Dependencies:
@@ -14,11 +14,11 @@
  *  Email : info@byeolbit.com
  *          sanggyeong.jo@gmail.com
  *
- * You can find this project at https://github.com/byeolbit/transparentCard
+ * You can find this project at https://github.com/byeolbit/translucent.js
  */
 
 (function($){ 
-    $.fn.transparentCard = function(bgElement, options){
+    $.fn.translucent = function(bgElement, options){
         var settings = $.extend({
             filterValue : 10,
             cardColor : 'white',
