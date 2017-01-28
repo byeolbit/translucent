@@ -122,10 +122,6 @@
                 cardInit();
             });
 
-            $this.resize(function() {
-                cardInit();
-            });
-
             if (draggable) {
                 $this.css({ 'cursor': 'move' });
                 $this.draggable({
