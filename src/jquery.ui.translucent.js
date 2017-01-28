@@ -17,7 +17,7 @@
  * You can find this project at https://github.com/byeolbit/translucent.js
  */
 
-(function($){ 
+(function($, window, document, undefined){ 
     $.fn.translucent = function(bgElement, options){
         var settings = $.extend({
             filterValue : 10,
@@ -178,4 +178,4 @@
             }
         });
     }
-}(jQuery));
+}(jQuery, window, document));
