@@ -3,7 +3,7 @@
 ![Title image]
 (https://github.com/byeolbit/byeolbit.github.io/blob/master/title.png?raw=true)
 
-Demo : https://byeolbit.github.io/tc_demo
+Demo : https://byeolbit.github.io/translucent
 
 ## Update Note
 
