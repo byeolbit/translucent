@@ -1,9 +1,13 @@
 $(document).ready(function(){
     var $c = $('#cw');
-    $c.offset({left:454, top:-400});
-    $c.translucent('.contents',{
+    $c.position({
+        my: 'center',
+        at: 'center',
+        of: '#bgEl'
+    });
+    $c.translucent('#bgEl',{
         filterValue : 5,
-        cardColor : 'clear',
+        cardColor : 'white',
         draggable : true,
         shadow : true
     });

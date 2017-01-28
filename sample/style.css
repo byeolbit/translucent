@@ -12,11 +12,14 @@ body {
     margin-right: auto;
     width: 100vw;
 }
-.tpc-card {
+
+.card-wrapper {
     height: 520px;
     width: 350px;
+    position: absolute;
 }
-.tpc-card-contents {
+
+.tl-card-contents {
     color:white;
     font-family: sans-serif;
     height: inherit;
@@ -26,7 +29,7 @@ body {
     width: inherit;
 }
 
-.tpc-card-contents h1 {
+.tl-card-contents h1 {
     font-size: 2.5em;
     font-weight: 100;
     margin-top:20px;
