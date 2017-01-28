@@ -31,13 +31,6 @@
             shadow: true
         }, options);
 
-        if (options == 'refresh') {
-            this.each(function() {
-                cardInit();
-            });
-            return this;
-        }
-
         this.each(function() {
             var cardColor = settings.cardColor,
                 draggable = settings.draggable,
