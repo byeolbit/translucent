@@ -27,9 +27,10 @@ Firefox 35.0 | Chrome 53.0  | Safari 6 | Edge 38.0 | Opera 40.0
 
 ### 2. Insert script into your HTML
 ```html
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
 <script src="jquery.ui.translucent.min.js"></script>
 ```
-*※ Don't forget to insert jQuery and jQuery-UI in your page.*
 
 ### 3. Make your background element and card element in HTML
 
@@ -54,7 +55,7 @@ Firefox 35.0 | Chrome 53.0  | Safari 6 | Edge 38.0 | Opera 40.0
 ```javascript
 $('.your-card').translucent('.your-background');
 ```
-  or you can customize options.
+or you can customize options.
 
 
 ```javascript
@@ -65,6 +66,22 @@ $('.your-card').translucent('.your-background',{
     shadow : true        // true or false
 });
 ```
+
+## Plugin description
+### .translucent( *selector* , [ *options* ] )
+
+#### *Selector*
++ **type** : `string`
++ **description** : Selector for your background element. It can be id or class.
+
+#### *Options*
+
+Attribute | Type | Default | Description
+--------- | ---- | ------- | -----------
+filterValue | `int` | 5 | This is blur value. Higher value needs more performance.
+cardColor | `string` | 'clear' | Color of card. You can use preset or your own color. Preset : `'clear'`, `'white'`, `'grey'`, `'black'`
+draggable | `boolean` | true | This decides draggable of element. `ture` applies draggable.
+shadow | `boolean` | true | This decides shadow effect of element. `true` applies effect.
 
 ## Update history
 
