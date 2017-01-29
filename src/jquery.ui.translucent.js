@@ -1,5 +1,5 @@
 /* 
- * jQuery UI translucent 1.0.3
+ * jQuery UI translucent 1.0.4
  * Copyright (c) 2017, Sanggyeong Jo
  * Lisensed under the MIT
  * 
@@ -58,7 +58,7 @@
                 },
                 cssColorBlack = {
                     'background-color': 'rgba(30,30,30,0.7)'
-                }
+                };
 
             $card.css({
                 'border': 'rgba(200,200,200,0.5) solid 1px',
@@ -78,8 +78,10 @@
 
             $cardCt.css({
                 'border-radius': '10px',
+                'height': $this.height(),
+                'overflow': 'hidden',
                 'position': 'relative',
-                'overflow': 'hidden'
+                'width': $this.width()
             });
 
             $cardCont.css({
