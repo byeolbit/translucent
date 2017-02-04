@@ -1,5 +1,5 @@
 /* 
- * jQuery UI translucent 1.0.4
+ * jQuery UI translucent 1.0.5
  * Copyright (c) 2017, Sanggyeong Jo
  * Lisensed under the MIT
  * 
@@ -30,7 +30,7 @@
             draggable: true,
             shadow: true
         }, options);
-
+        
         this.each(function() {
             var cardColor = settings.cardColor,
                 draggable = settings.draggable,
@@ -39,85 +39,16 @@
 
             var $this = $(this);
 
-            var $card = $this.children('.tl-card'),
-                $cardCt = $this.children('.tl-card-bg-container'),
-                $cardCont = $card.children('.tl-card-contents'),
-                $cardBg = $cardCt.children('.tl-card-bg'),
+            var $card = $this.find('.tl-card'),
+                $cardCt = $this.find('.tl-card-bg-container'),
+                $cardCont = $card.find('.tl-card-contents'),
                 $targetBg = $(bgElement),
                 $window = $(window),
-                bgAttach;
+                bgAttach,
+                cardBgStyle = $cardCt.find('.tl-card-bg')[0].style;
 
-            var cssColorClear = {
-                    'background-color': 'rgba(255,255,255,0)'
-                },
-                cssColorWhite = {
-                    'background-color': 'rgba(255,255,255,0.4)'
-                },
-                cssColorGrey = {
-                    'background-color': 'rgba(120,120,120,0.4)'
-                },
-                cssColorBlack = {
-                    'background-color': 'rgba(30,30,30,0.7)'
-                };
-
-            $card.css({
-                'border': 'rgba(200,200,200,0.5) solid 1px',
-                'border-radius': '10px',
-                'height': $this.height(),
-                'overflow': 'hidden',
-                'position': 'relative',
-                'transition': 'box-shadow 0.4s ease',
-                'width': $this.width()
-            });
-
-            if (shadow) {
-                $card.css({
-                    'box-shadow': '0px 20px 20px rgba(0,0,0,0.5)'
-                });
-            }
-
-            $cardCt.css({
-                'border-radius': '10px',
-                'height': $this.height(),
-                'overflow': 'hidden',
-                'position': 'relative',
-                'width': $this.width()
-            });
-
-            $cardCont.css({
-                'border-radiu': '10px',
-                'height': $this.height(),
-                'overflow': 'hidden',
-                'position': 'relative',
-                'width': $this.width()
-            });
-
+            styleInit();
             cardInit();
-
-            $card.position({
-                my: 'center',
-                at: 'center',
-                of: this
-            });
-
-            cardInit();
-
-            switch (cardColor) {
-                case 'clear':
-                    $cardCont.css(cssColorClear);
-                    break;
-                case 'white':
-                    $cardCont.css(cssColorWhite);
-                    break;
-                case 'grey':
-                    $cardCont.css(cssColorGrey);
-                    break;
-                case 'black':
-                    $cardCont.css(cssColorBlack);
-                    break;
-                default:
-                    $cardCont.css('background-color', cardColor);
-            }
 
             //Card background reacts to change of window size
             $window.resize(function() {
@@ -149,6 +80,90 @@
                 });
             }
 
+            function styleInit() {
+                if (shadow) {
+                    $card.css('box-shadow', '0px 20px 20px rgba(0,0,0,0.5)');
+                }
+
+                $card.css({
+                    'height': $this.height(),
+                    'width': $this.width()
+                });
+
+                $cardCt.css({
+                    'height': $this.height(),
+                    'width': $this.width()
+                });
+
+                $cardCont.css({
+                    'height': $this.height(),
+                    'width': $this.width()
+                });
+
+                switch (cardColor) {
+                    case 'clear':
+                        $cardCont.css('background-color',
+                                      'rgba(255,255,255,0)');
+                        break;
+                    case 'white':
+                        $cardCont.css('background-color',
+                                      'rgba(255,255,255,0.4)');
+                        break;
+                    case 'grey':
+                        $cardCont.css('background-color',
+                                      'rgba(120,120,120,0.4)');
+                        break;
+                    case 'black':
+                        $cardCont.css('background-color',
+                                      'rgba(30,30,30,0.7)');
+                        break;
+                    default:
+                        $cardCont.css('background-color', cardColor);
+                }
+                
+                $card.position({
+                    my: 'center',
+                    at: 'center',
+                    of: $this
+                });
+
+                //escape if style exists in head
+                if (document.getElementById('tl-Card-css')) return;
+
+                var cssForCard = `
+                        .tl-card {
+                            border: rgba(200,200,200,0.5) solid 1px;
+                            border-radius: 10px;
+                            overflow: hidden;
+                            position: relative;
+                            transition: box-shadow 0.4s ease
+                        }
+
+                        .tl-card-bg-contents {
+                            border-radius: 10px;
+                            overflow: hidden;
+                            position: relative;
+                        }
+
+                        .tl-card-contents {
+                            overflow: hidden;
+                            position: relative;
+                            border-radiu: 10px;
+                        }
+                    `;
+
+                var head = document.head,
+                    style = document.createElement('style');
+
+                style.type = 'text/css';
+                if (!style.styleSheet) {
+                    style.appendChild(document.createTextNode(cssForCard));
+                }
+                style.id = 'tl-Card-css';
+                
+                head.appendChild(style);
+            }
+
             //Initialize card.
             function cardInit() {
                 var bgImg = $targetBg.css('background-image'),
@@ -157,38 +172,34 @@
                     cardHeight = $this.height(),
                     cardWidth = $this.width();
 
-                $cardBg.css('background-image', bgImg);
-                $cardBg.css('background-repeat', bgRepeat);
-                $cardBg.css('background-size', bgSize);
-                $cardBg.css('filter', 'blur(' + filterValue + 'px)');
-                $cardBg.css('margin-left', '-' + (filterValue) + 'px');
-                $cardBg.css('margin-top', '-' + (filterValue) + 'px');
-                $cardBg.height(cardHeight + filterValue * 2);
-                $cardBg.width(cardWidth + filterValue * 2);
+                cardBgStyle.cssText = 
+                    'background-image: ' + bgImg + '; ' +
+                    'background-repeat: ' + bgRepeat + '; ' +
+                    'background-size: ' + bgSize + '; ' +
+                    'filter: blur(' + filterValue + 'px); ' +
+                    'margin-left: -' + (filterValue) + 'px; ' +
+                    'margin-top: -' + (filterValue) + 'px; ' +
+                    'height: ' + (cardHeight + filterValue * 2) + 'px; ' +
+                    'width: ' + (cardWidth + filterValue * 2) + 'px;';
 
                 applyTransparent();
             }
 
             // Blurred background tracks offset of card.
             function applyTransparent() {
-                var bgAtt = $targetBg.css('background-attachment'),
+                var bgAtt = $targetBg[0].style.backgroundAttachment,
                     bgOffset = $targetBg.offset(),
                     cardOffset = $this.offset();
 
-                $cardBg.css('background-attachment', bgAtt);
-                $cardCt.offset({
-                    left: cardOffset.left + 1,
-                    top: cardOffset.top +1
-                });
-
+                cardBgStyle.backgroundAttachment = bgAtt;
                 // If background-attachment is fixed,
                 // don't need to track the card offset.
                 if (bgAtt != 'fixed') {
-                    $cardBg.css('background-position',
+                    cardBgStyle.backgroundPosition = 
                                 (bgOffset.left -
                                 (cardOffset.left - filterValue)) + 'px ' +
                                 (bgOffset.top -
-                                (cardOffset.top - filterValue)) + 'px');
+                                (cardOffset.top - filterValue)) + 'px';
                 }
             }
         });
