@@ -1,5 +1,5 @@
 /* 
- * jQuery UI translucent 1.0.5
+ * jQuery UI translucent 1.0.6
  * Copyright (c) 2017, Sanggyeong Jo
  * Lisensed under the MIT
  * 
