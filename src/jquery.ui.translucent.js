@@ -139,7 +139,7 @@
                             transition: box-shadow 0.4s ease
                         }
 
-                        .tl-card-bg-contents {
+                        .tl-card-bg-container {
                             border-radius: 10px;
                             overflow: hidden;
                             position: relative;
