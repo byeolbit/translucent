@@ -3,7 +3,6 @@ $(document).ready(function(){
     $c.translucent('#bgEl',{
         filterValue : 5,
         cardColor : 'white',
-        draggable : true,
         shadow : true
     }).position({
         my: 'center',
@@ -13,12 +12,14 @@ $(document).ready(function(){
         containment: '#bgEl',
         start: function(event, ui) {
                 $(this).css({
-                    'box-shadow': '0px 40px 30px rgba(0,0,0,0.7)'
+                    'box-shadow': '0px 40px 30px rgba(0,0,0,0.7)',
+                    'transition' : 'box-shadow .4s ease'
                 });
         },
         stop: function(event, ui) {
                 $(this).css({
-                    'box-shadow': '0px 20px 20px rgba(0,0,0,0.5)'
+                    'box-shadow': 'none',
+                    'transition' : 'box-shadow .4s ease'
                 });
         }
     });

@@ -3,9 +3,8 @@ body {
 }
 
 .contents{
-    background: url("https://upload.wikimedia.org/wikipedia/commons/6/64/ChicagoFromCellularField.jpg");
-    background-size: 110vw !important;
-    background-repeat: repeat-y !important;
+    background: url("bg.jpg");
+    background-size: cover !important;
     background-attachment: inherit;
     height: 100vh;
     margin-left: auto;
