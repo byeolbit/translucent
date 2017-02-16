@@ -4,7 +4,7 @@ body {
 
 .contents{
     background: url("bg.jpg");
-    background-size: cover !important;
+    background-size: 100% !important;
     background-attachment: inherit;
     height: 100vh;
     margin-left: auto;

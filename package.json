@@ -15,7 +15,7 @@
     "effect",
     "jQuery"
   ],
-  "version": "1.0.6",
+  "version": "1.0.8",
   "author": "Sanggyeong Jo <sanggyeong.jo@gmil.com> (https://github.com/byeolbit)",
   "maintainers": [
     "Sanggyeong Jo <sanggyeong.jo@gmil.com> (https://github.com/byeolbit)"
@@ -35,8 +35,7 @@
   },
   "homepage": "https://byeolbit.github.io/translucent",
   "dependencies": {
-    "jquery": ">=1.6",
-    "jquery-ui": ">=1.10.0"
+    "jquery": ">=1.6"
   },
   "main": "./dist/jquery.ui.translucent.min.js",
   "scripts": {

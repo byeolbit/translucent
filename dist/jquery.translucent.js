@@ -60,7 +60,7 @@
 
         this._defaults = defaults;
         this._name = pluginName;
-
+        
         this.init();
     }
 
@@ -76,7 +76,6 @@
             self.$bgElement = $(self.bgElement);
 
             $.extend(this, self.initStructure(self.$element));
-            self.setDataAttributes(self.$element);
 
             //Init style
             self.styleInit(self.$element,
@@ -85,19 +84,24 @@
                            self.options.shadow,
                            self.options.cardColor);
             
-            //Init card background
-            self.cardBgInit(self.$element, self.$bgElement, self.cardBgStyle,
-                          self.options.filterValue);
+            $(window).resize(function(){
+                self.cardBgInit(self.$element, self.$bgElement,
+                                self.cardBgStyle,
+                                self.options.filterValue);
+            });
 
-            $(window).resize(function() {
-                self.cardBgInit(self.$element, self.$bgElement, self.cardBgStyle,
-                              self.options.filterValue);
+            //Wait for full load of css
+            $(window).bind('load',function() {
+                $.each(self.$element,function(){
+                    //Init card background
+                    self.cardBgInit(self.$element, self.$bgElement,
+                                    self.cardBgStyle,
+                                    self.options.filterValue);
+                })
             });
 
             self.observeBackgroundChange();
             self.observeStyleChange();
-            self.sizeChange();
-            self.offsetChange();
         },
 
         /**
@@ -124,18 +128,6 @@
                      $cardBgContainer : $cardBgContainer,
                      cardBgStyle : cardBgStyle,
                      $cardContainer : $cardContainer };
-        },
-
-        /**
-         * Attatch data attributes to target element
-         * 
-         * @param {jQuery} $element - Element that attach data attributes.
-         */
-        setDataAttributes : function($element) {
-            $element.attr('data-tl-offset', this.getOffset($element));
-
-            $element.attr('data-tl-size',
-                          $element.width() + ' ' + $element.height());
         },
 
         /**
@@ -308,6 +300,7 @@
                                      self.$bgElement,
                                      self.cardBgStyle,
                                      self.options.filterValue);
+                    console.log('detect!');
                 })
              });
 
@@ -317,7 +310,7 @@
 
         /**
          * Observe change of size ond offset.
-         * Change data attributes when it changes.
+         * Change style of card when it changes.
          */
         observeStyleChange : function() {
             var self = this,
@@ -328,10 +321,12 @@
 
             var styleObserver = new MutationObserver(function(mutations) {
                 mutations.forEach(function(mutation) {
-                    if (self.$element.offset() !== offsetData) {
+                    if (offsetData !== self.$element.offset()) {
                         offsetData = self.$element.offset();
-                        self.$element.attr('data-tl-offset',
-                                       self.getOffset(self.$element));
+                        self.applyTransparent(self.$element,
+                                              self.$bgElement,
+                                              self.cardBgStyle,
+                                              self.options.filterValue);
                     }
 
                     var cHeight = self.$element.height(),
@@ -340,58 +335,19 @@
                     if ((sizeHeight == cHeight) || (sizeWidth == cWidth)) {
                         sizeHeight = cHeight;
                         sizeWidth = cWidth;
-                        self.$element.attr('data-tl-size',
-                                           cWidth + ' ' + cHeight);
+                        self.cardBgInit(self.$element,
+                                        self.$bgElement,
+                                        self.cardBgStyle,
+                                        self.options.filterValue);
                     }
                 });
             });
 
-            var config = { attributes: true, attributeFilter: ['style'] };
+            var config = { attributes: true,
+                           childList: true,
+                           characterData: true,
+                           attributeFilter: ['style'] };
             styleObserver.observe(element, config);
-        },
-        
-        /**
-         * Observe change of size.
-         * Init the cardBackground for changed size.
-         */
-        sizeChange : function() {
-            var self = this,
-                element = self.$element[0];
-
-            var sizeObserver = new MutationObserver(function(mutations) {
-                mutations.forEach(function(mutation) {
-                    self.cardBgInit(self.$element,
-                                    self.$bgElement,
-                                    self.cardBgStyle,
-                                    self.options.filterValue);
-                });
-            });
-
-            var sizeConfig = { attributes: true,
-                               attributeFilter: ['data-tl-size'] };
-            sizeObserver.observe(element, sizeConfig);
-        },
-
-        /**
-         * Observe change of offset.
-         * Apply translucent to Cardbackground for changed offset.
-         */
-        offsetChange: function() {
-            var self = this;
-            var element = self.$element[0];
-
-            var offsetObserver = new MutationObserver(function(mutations) {
-                mutations.forEach(function(mutation) {
-                    self.applyTransparent(self.$element,
-                                          self.$bgElement,
-                                          self.cardBgStyle,
-                                          self.options.filterValue);
-                });
-            });
-
-            var offsetConfig =  {  attributes: true,
-                                   attributeFilter: ['data-tl-offset'] };
-            offsetObserver.observe(element, offsetConfig);
         },
 
         /**
@@ -401,7 +357,7 @@
          * @return {string} - Offset data changed to string.
          */
         getOffset : function($element){
-            return $element.offset().left + '' + $element.offset().top;
+            return $element.offset().left + ' ' + $element.offset().top;
         }
     });
 
