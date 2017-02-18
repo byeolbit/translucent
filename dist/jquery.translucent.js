@@ -20,7 +20,6 @@
         factory(jQuery, window, document);
     }
 }(function($, window, document, undefined) {
-
     var pluginName = 'translucent',
         /**
          * Default values for plugin
@@ -67,6 +66,8 @@
     $.extend(Translucent.prototype, {
         /**
          * Initialize plugin
+         * 
+         * @private
          */
         init : function(){
             //Init variables
@@ -75,49 +76,76 @@
             self.$element = $(self.element);
             self.$bgElement = $(self.bgElement);
 
-            $.extend(this, self.initStructure(self.$element));
+            $.extend(this, self._initStructure(self.$element));
 
             //Init style
-            self.styleInit(self.$element,
-                           self.$cardContents,
-                           self.$cardContainer,
-                           self.options.shadow,
-                           self.options.cardColor);
+            self._styleInit(self.$element,
+                            self.$cardContents,
+                            self.$cardContainer,
+                            self.options.shadow,
+                            self.options.cardColor);
             
+            //React to window size
             $(window).resize(function(){
-                self.cardBgInit(self.$element, self.$bgElement,
-                                self.cardBgStyle,
-                                self.options.filterValue);
+                self._cardBgInit(self.$element, self.$bgElement,
+                                 self.cardBgStyle,
+                                 self.options.filterValue);
             });
 
             //Wait for full load of css
             $(window).bind('load',function() {
                 $.each(self.$element,function(){
                     //Init card background
-                    self.cardBgInit(self.$element, self.$bgElement,
-                                    self.cardBgStyle,
-                                    self.options.filterValue);
-                })
+                    self._cardBgInit(self.$element, self.$bgElement,
+                                     self.cardBgStyle,
+                                     self.options.filterValue);
+                });
             });
 
-            self.observeBackgroundChange();
-            self.observeStyleChange();
+            self._observeBackgroundChange();
+            self._observeStyleChange();
+        },
+
+        /**
+         * This destroys plugin.
+         * 
+         * @public
+         */
+        destroy : function () {
+            this.$element.unbind('destroyed',this._teardown());
+            this.$cardBgContainer.empty().remove();
+            this.$cardContents.detach().appendTo(this.$element);
+            this.$cardContainer.remove();
+            this._teardown(this);
+        },
+
+        /**
+         * Tear down plugin.
+         * 
+         * @private
+         */
+        _teardown : function (self) {
+            self.styleObserver.disconnect();
+            self.bgObserver.disconnect();
+            $('#tl-Card-css').remove();
+            $.removeData(self, 'plugin_'+self._name);
         },
 
         /**
          * Generate elements to make card structure.
          * 
-         * @param {jQuery} $element - target element to make card structure.
-         * @return {object} - elements that created in this function.
+         * @private
+         * @param {jQuery} $element - Target element to make card structure.
+         * @return {object} - Elements that created in this function.
          */
-        initStructure : function($element) {
+        _initStructure : function($element) {
             var $cardContents = $element.find('.tl-card-contents').detach(),
                 $cardBgContainer =
                     $('<div class = "tl-card-bg-container"></div>').
                     appendTo($element),
-                cardBgStyle =
+                $cardBg =
                     $('<div class = "tl-card-bg"></div>').
-                    appendTo($cardBgContainer)[0].style,
+                    appendTo($cardBgContainer),
                 $cardContainer =
                     $('<div class = "tl-card-container"></div>').
                     appendTo($element);
@@ -126,20 +154,22 @@
 
             return { $cardContents : $cardContents,
                      $cardBgContainer : $cardBgContainer,
-                     cardBgStyle : cardBgStyle,
+                     $cardBg : $cardBg,
+                     cardBgStyle : $cardBg[0].style,
                      $cardContainer : $cardContainer };
         },
 
         /**
          * Initialize style of elements.
          * 
+         * @private
          * @param {jQuery} $element - Target element of this plugin.
          * @param {jQuery} $cardContents - Element that has contents.
          * @param {jQuery} $cardContainer - Container element of cardContents.
          * @param {boolean} shadow - Decides apply shadow effect.
          * @param {string} cardColor - Color of card.
          */
-        styleInit : function($element, $cardContents, $cardContainer,
+        _styleInit : function($element, $cardContents, $cardContainer,
                              shadow, cardColor) {
             if (shadow) {
                 $cardContainer.
@@ -196,14 +226,15 @@
         },
 
         /**
-         * Initialize background of card
+         * Initialize background of card.
          * 
+         * @private
          * @param {jQuery} $element - Target element of this plugin.
          * @param {jQuery} $bgElement - Background element.
          * @param {element.style} cardBgStyle - Style of card background.
          * @param {number} filterValue - Amount of filter.
          */
-        cardBgInit : function($element, $bgElement, cardBgStyle, filterValue) {
+        _cardBgInit : function($element, $bgElement, cardBgStyle, filterValue) {
             var bgImg = $bgElement.css('background-image'),
                 bgRepeat = $bgElement.css('background-repeat'),
                 bgSize = $bgElement.css('background-size'),
@@ -219,57 +250,69 @@
                 'height: ' + (cardHeight + filterValue * 2) + 'px; ' +
                 'width: ' + (cardWidth + filterValue * 2) + 'px;';
 
-            if (bgSize == 'cover') {
-                var naturalSize = getNaturalSize(bgImg),
-                    bgHeight = $bgElement.height(),
-                    bgWidth = naturalSize.width * (bgHeight/naturalSize.height);
+            cardBgStyle.backgroundSize = _getPixelSize($bgElement,
+                                                       bgImg,
+                                                       bgSize);
 
-                cardBgStyle.backgroundSize = bgWidth+'px '+bgHeight+'px';
-
-            } else if (bgSize.indexOf('%') != -1) {
-                var naturalSize = getNaturalSize(bgImg),
-                    bgWidth = $bgElement.width();
-                    bgHeight = naturalSize.height * (bgWidth/naturalSize.width);
-                
-                cardBgStyle.backgroundSize = bgWidth+'px '+bgHeight+'px';
-
-            } else {
-                cardBgStyle.backgroundSize = bgSize;
-            }
-
-            this.applyTransparent($element,
-                                  $bgElement,
-                                  cardBgStyle,
-                                  filterValue);
+            this._applyTransparent($element, $bgElement,
+                                  cardBgStyle, filterValue);
 
             /**
              * Get original size of image
              * 
+             * @private
              * @param {string} bgUrl - Url of image
              * @return {object} - Return original width and height
              */
-            function getNaturalSize(bgUrl) {
+            function _getNaturalSize(bgUrl) {
                 bgUrl = bgUrl.slice(4, -1).replace(/"/g, "");
-                bgUrl = '.'+bgUrl.substring(bgUrl.lastIndexOf('/'),
-                                             bgUrl.length);
 
                 var newImage = new Image();
-                newImage.src = bgUrl;
+                $(newImage).attr('src','');
+                $(newImage).attr('src',bgUrl);
                 
                 return { width: newImage.naturalWidth,
-                         height: newImage.naturalHeight}
+                         height: newImage.naturalHeight};
+            }
+
+            /**
+             * Get pixel size of background-image from cover and percent.
+             * 
+             * @private
+             * @param {jQuery} $bgElement - Element that has background.
+             * @param {string} url - Url of background-image.
+             * @param {string} size - CSS background-size property.
+             * @return {string} - Size changed into pixel.
+             */
+            function _getPixelSize($bgElement, url, size) {
+                var naturalSize = _getNaturalSize(bgImg),
+                    bgHeight,
+                    bgWidth,
+                    realSize;
+
+                if (size == 'cover') {
+                    bgHeight = $bgElement.height();
+                    bgWidth = naturalSize.width * (bgHeight/naturalSize.height);
+                } else if (size.indexOf('%') !== -1) {
+                    bgHeight = naturalSize.height * (bgWidth/naturalSize.width);
+                    bgWidth = $bgElement.width();
+                } else {
+                    return size;
+                }
+                return bgWidth+'px '+bgHeight+'px';
             }
         },
 
         /**
          * Apply translucent background to background element.
          * 
+         * @private
          * @param {jQuery} $element - Target element of this plugin.
          * @param {jQuery} $bgElement - Background element.
          * @param {element.style} cardBgStyle - Style of card background.
          * @param {number} filterValue - Amount of filter.
          */
-        applyTransparent : function($element, $bgElement,
+        _applyTransparent : function($element, $bgElement,
                                     cardBgStyle, filterValue) {
             var bgAtt = $bgElement.css('backgroundAttachment'),
                 bgOffset = $bgElement.offset(),
@@ -289,44 +332,47 @@
         /**
          * Observe style of background.
          * Init card when it changes.
+         * 
+         * @private
          */
-        observeBackgroundChange : function() {
+        _observeBackgroundChange : function() {
             var self = this,
                 bgElement = self.$bgElement[0];
 
-             var bgObserver = new MutationObserver(function(mutations) {
+             self.bgObserver = new MutationObserver(function(mutations) {
                  mutations.forEach(function(mutation) {
-                     self.cardBgInit(self.$element,
-                                     self.$bgElement,
-                                     self.cardBgStyle,
-                                     self.options.filterValue);
-                    console.log('detect!');
-                })
+                     self._cardBgInit(self.$element,
+                                      self.$bgElement,
+                                      self.cardBgStyle,
+                                      self.options.filterValue);
+                });
              });
 
              var config = { attributes: true, attributeFilter: ['style'] };
-             bgObserver.observe(bgElement, config);
+             self.bgObserver.observe(bgElement, config);
         },
 
         /**
          * Observe change of size ond offset.
          * Change style of card when it changes.
+         * 
+         * @private
          */
-        observeStyleChange : function() {
+        _observeStyleChange : function() {
             var self = this,
                 element = self.element,
                 offsetData = self.$element.offset(),
                 sizeHeight = self.$element.height(),
                 sizeWidth = self.$element.width();
 
-            var styleObserver = new MutationObserver(function(mutations) {
+            self.styleObserver = new MutationObserver(function(mutations) {
                 mutations.forEach(function(mutation) {
                     if (offsetData !== self.$element.offset()) {
                         offsetData = self.$element.offset();
-                        self.applyTransparent(self.$element,
-                                              self.$bgElement,
-                                              self.cardBgStyle,
-                                              self.options.filterValue);
+                        self._applyTransparent(self.$element,
+                                               self.$bgElement,
+                                               self.cardBgStyle,
+                                               self.options.filterValue);
                     }
 
                     var cHeight = self.$element.height(),
@@ -335,10 +381,10 @@
                     if ((sizeHeight == cHeight) || (sizeWidth == cWidth)) {
                         sizeHeight = cHeight;
                         sizeWidth = cWidth;
-                        self.cardBgInit(self.$element,
-                                        self.$bgElement,
-                                        self.cardBgStyle,
-                                        self.options.filterValue);
+                        self._cardBgInit(self.$element,
+                                         self.$bgElement,
+                                         self.cardBgStyle,
+                                         self.options.filterValue);
                     }
                 });
             });
@@ -347,26 +393,56 @@
                            childList: true,
                            characterData: true,
                            attributeFilter: ['style'] };
-            styleObserver.observe(element, config);
+            self.styleObserver.observe(element, config);
         },
 
         /**
-         * Get the offset of target element.
+         * Change amount of blur
          * 
-         * @param {jQuery} $element - Target element to get offset.
-         * @return {string} - Offset data changed to string.
+         * @public
+         * @param {number} filterValue - Amount of blur.
          */
-        getOffset : function($element){
-            return $element.offset().left + ' ' + $element.offset().top;
+        blur : function(filterValue) {
+            var self = this;
+            this.options.filterValue = filterValue;
+
+            self._cardBgInit(self.$element,
+                             self.$bgElement,
+                             self.cardBgStyle,
+                             self.options.filterValue);
         }
     });
 
-    $.fn[pluginName] = function ( bgElement, options ) {
-        return this.each(function () {
-            if (!$.data(this, 'plugin_' + pluginName)) {
-                $.data(this, 'plugin_' + pluginName, 
-                new Translucent( this, bgElement, options ));
-            }
-        });
-    }
+    /**
+     * Register plugin within jQuery plugins.
+     */
+    $.fn[pluginName] = function ( options ) {
+        var args = arguments;
+
+        if ((args[1] === undefined ||
+            typeof args[1] === 'object') &&
+            options[0] === '#'){
+            return this.each(function () {
+                //This prevents multiple plugin instanciation.
+                if (!$.data(this, 'plugin_' + pluginName)) {
+                    $.data(this, 'plugin_' + pluginName,
+                        new Translucent( this, args[0], args[1] ));
+                }
+            });
+        }
+        //This prevents call private functions(Functions start with '_').
+        else if (typeof options === 'string' &&
+                   options[0] !== '_' &&
+                   options !== 'init') {
+            return this.each(function() {
+                var instance = $.data(this, 'plugin_' + pluginName),
+                    slicedArgs = Array.prototype.slice.call(args, 1);
+
+                if (instance instanceof Translucent &&
+                    typeof instance[options] === 'function') {
+                    instance[options].apply(instance, slicedArgs);
+                }
+            });
+        } 
+    };
 }));
