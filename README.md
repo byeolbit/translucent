@@ -8,7 +8,6 @@ Demo : https://byeolbit.github.io/translucent
 <br/><br/>
 ## What you need to use Translucent
 - jQuery
-- jQuery-UI
 - Browser support
 
 ####Tested browsers
@@ -28,23 +27,17 @@ Firefox 35.0 | Chrome 53.0  | Safari 6 | Edge 38.0 | Opera 40.0
 ### 2. Insert script into your HTML
 ```html
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
-<script src="jquery.ui.translucent.min.js"></script>
+<script src="jquery.translucent.min.js"></script>
 ```
 
 ### 3. Make your background element and card element in HTML
 
 ```html
-<div class="your-background">
+<div id="your-background">
     <div class="your-card">
-        <div class="tl-card-bg-container">
-            <div class="tl-card-bg"></div>
+        <div class="tl-card-contents">
+            <!-- your card contents here -->
         </div>
-        <div class="tl-card">
-            <div class="tl-card-contents">
-                <!-- your card contents here -->
-            </div>
-        <div>
     </div>
 </div>
 ```
@@ -53,35 +46,47 @@ Firefox 35.0 | Chrome 53.0  | Safari 6 | Edge 38.0 | Opera 40.0
 ### 4. Apply translucent to your card element in script
 
 ```javascript
-$('.your-card').translucent('.your-background');
+$('.your-card').translucent('#your-background');
 ```
 or you can customize options.
 
 
 ```javascript
-$('.your-card').translucent('.your-background',{
+$('.your-card').translucent('#your-background',{
     filterValue : 5,     // int
     cardColor : 'clear', // preset color or your own color
-    draggable : true,    // true or false
     shadow : true        // true or false
 });
 ```
 <br/><br/>
 ## Plugin description
 ### .translucent( *selector* , [ *options* ] )
+Apply translucent card them to element.
 
 #### *Selector*
 + **type** : `string`
-+ **description** : Selector for your background element. It can be id or class.
++ **description** : Selector for your background element. It must be id.
 
 #### *Options*
 
 Attribute | Type | Default | Description
 --------- | ---- | ------- | -----------
-filterValue | `int` | 5 | This is blur value. Higher value needs more performance.
+filterValue | `number` | 5 | This is blur value.
 cardColor | `string` | 'clear' | Color of card. You can use preset or your own color. Preset : `'clear'`, `'white'`, `'grey'`, `'black'`
-draggable | `boolean` | true | This decides draggable of element. `ture` applies draggable.
 shadow | `boolean` | true | This decides shadow effect of element. `true` applies effect.
+<br/>
+### .translucent( *'blur'* , *value* )
+Change amount of blur for background.
+
+#### *Value*
++ **type** : `number`
++ **description** : Value for blur background. 0 will get clear background.
+
+### Example
+```javascript
+// Apply 20 blur to background
+$('.your-element').translucent('blur', 20);
+```
 <br/>
 ## Update history
 
