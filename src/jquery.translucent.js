@@ -127,6 +127,7 @@
         _teardown : function (self) {
             self.styleObserver.disconnect();
             self.bgObserver.disconnect();
+            $('#tl-Card-css').remove();
             $.removeData(self, 'plugin_'+self._name);
         },
 
