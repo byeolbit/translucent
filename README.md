@@ -82,7 +82,7 @@ Change amount of blur for background.
 + **type** : `number`
 + **description** : Value for blur background. 0 will get clear background.
 
-### Example
+#### Example
 ```javascript
 // Apply 20 blur to background
 $('.your-element').translucent('blur', 20);
