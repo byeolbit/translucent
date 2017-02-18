@@ -18,6 +18,7 @@ Firefox 35.0 | Chrome 53.0  | Safari 6 | Edge 38.0 | Opera 40.0
 
 *※ Not support Internet Explorer. (It does not support CSS filter)*
 <br/>
+<br/>
 ## How to use translucent
 
 ### 1. Get plugin
