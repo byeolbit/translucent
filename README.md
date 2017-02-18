@@ -76,8 +76,8 @@ Apply translucent card them to element.
 
 Attribute | Type | Default | Description
 --------- | ---- | ------- | -----------
-filterValue | `number` | 5 | This is blur value.
-cardColor | `string` | 'clear' | Color of card. You can use preset or your own color. Preset : `'clear'`, `'white'`, `'grey'`, `'black'`
+filterValue | `number` | 10 | This is blur value.
+cardColor | `string` | 'white' | Color of card. You can use preset or your own color. Preset : `'clear'`, `'white'`, `'grey'`, `'black'`
 shadow | `boolean` | true | This decides shadow effect of element. `true` applies effect.
 
 ### .translucent( *'blur'* , *value* )
