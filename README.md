@@ -5,7 +5,7 @@
 Demo : https://byeolbit.github.io/translucent
 
 #### **Translucent** is a jQuery plugin for make transparent/translucent design element in webpage.
-<br/><br/>
+<br/>
 ## What you need to use Translucent
 - jQuery
 - Browser support
@@ -17,7 +17,7 @@ Firefox 35.0 | Chrome 53.0  | Safari 6 | Edge 38.0 | Opera 40.0
 <img src="https://github.com/alrra/browser-logos/raw/master/src/firefox/firefox_128x128.png" alt="Firefox"> | <img src="https://github.com/alrra/browser-logos/raw/master/src/chrome/chrome_128x128.png" alt="Chrome"> | <img src="https://github.com/alrra/browser-logos/raw/master/src/safari/safari_128x128.png" alt="Safari"> | <img src="https://github.com/alrra/browser-logos/raw/master/src/edge/edge_128x128.png" alt="Edge"> | <img src="https://github.com/alrra/browser-logos/raw/master/src/opera/opera_128x128.png" alt="Opera">
 
 *※ Not support Internet Explorer. (It does not support CSS filter)*
-<br/><br/>
+<br/>
 ## How to use translucent
 
 ### 1. Get plugin
@@ -58,7 +58,7 @@ $('.your-card').translucent('#your-background',{
     shadow : true        // true or false
 });
 ```
-<br/><br/>
+<br/>
 ## Plugin description
 ### .translucent( *selector* , [ *options* ] )
 Apply translucent card them to element.
@@ -74,7 +74,7 @@ Attribute | Type | Default | Description
 filterValue | `number` | 5 | This is blur value.
 cardColor | `string` | 'clear' | Color of card. You can use preset or your own color. Preset : `'clear'`, `'white'`, `'grey'`, `'black'`
 shadow | `boolean` | true | This decides shadow effect of element. `true` applies effect.
-<br/>
+
 ### .translucent( *'blur'* , *value* )
 Change amount of blur for background.
 
@@ -87,6 +87,15 @@ Change amount of blur for background.
 // Apply 20 blur to background
 $('.your-element').translucent('blur', 20);
 ```
+
+### .translucent( *'destroy'* )
+Destroy translucent from the element.
+
+#### Example
+```javascript
+$('.your-element').translucent('destroy');
+```
+
 <br/>
 ## Update history
 
