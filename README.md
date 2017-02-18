@@ -10,7 +10,7 @@ Demo : https://byeolbit.github.io/translucent
 - jQuery
 - Browser support
 
-####Tested browsers
+#### Tested browsers
 
 Firefox 35.0 | Chrome 53.0  | Safari 6 | Edge 38.0 | Opera 40.0
 --------|--------|--------|------|-------
@@ -19,6 +19,7 @@ Firefox 35.0 | Chrome 53.0  | Safari 6 | Edge 38.0 | Opera 40.0
 *※ Not support Internet Explorer. (It does not support CSS filter)*
 <br/>
 <br/>
+
 ## How to use translucent
 
 ### 1. Get plugin
@@ -59,8 +60,11 @@ $('.your-card').translucent('#your-background',{
     shadow : true        // true or false
 });
 ```
+
 <br/>
+
 ## Plugin description
+
 ### .translucent( *selector* , [ *options* ] )
 Apply translucent card them to element.
 
