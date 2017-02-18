@@ -1,5 +1,5 @@
 /* 
- * jQuery translucent 1.0.8
+ * jQuery translucent 1.0.9
  * Copyright (c) 2017, Sanggyeong Jo
  * Lisensed under the MIT
  * 
@@ -268,7 +268,6 @@
                 bgUrl = bgUrl.slice(4, -1).replace(/"/g, "");
 
                 var newImage = new Image();
-                $(newImage).attr('src','');
                 $(newImage).attr('src',bgUrl);
                 
                 return { width: newImage.naturalWidth,
@@ -287,15 +286,14 @@
             function _getPixelSize($bgElement, url, size) {
                 var naturalSize = _getNaturalSize(bgImg),
                     bgHeight,
-                    bgWidth,
-                    realSize;
+                    bgWidth;
 
                 if (size == 'cover') {
                     bgHeight = $bgElement.height();
                     bgWidth = naturalSize.width * (bgHeight/naturalSize.height);
                 } else if (size.indexOf('%') !== -1) {
-                    bgHeight = naturalSize.height * (bgWidth/naturalSize.width);
                     bgWidth = $bgElement.width();
+                    bgHeight = naturalSize.height * (bgWidth/naturalSize.width);
                 } else {
                     return size;
                 }
