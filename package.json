@@ -37,7 +37,7 @@
   "dependencies": {
     "jquery": ">=1.6"
   },
-  "main": "./dist/jquery.ui.translucent.min.js",
+  "main": "./dist/jquery.translucent.min.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
