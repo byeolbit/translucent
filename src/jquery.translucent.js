@@ -11,7 +11,7 @@
  *  Email : info@byeolbit.com
  *          sanggyeong.jo@gmail.com
  *
- * You can find this project at https://github.com/byeolbit/translucent.js
+ * You can find this project at https://github.com/byeolbit/translucent
  */
 (function(factory) {
     if (typeof module === 'object' && typeof module.exports === 'object') {
