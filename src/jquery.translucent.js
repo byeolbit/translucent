@@ -219,7 +219,7 @@
                         '.tl-card-bg-container {border-radius: 10px;' +
                         'overflow: hidden; position: relative;} ' +
                         '.tl-card-contents {overflow: hidden;' +
-                        'position: relative; border-radiu: 10px;}' +
+                        'position: relative; border-radius: 10px;}' +
                         '</style>';
 
             $(style).appendTo( "head" );
