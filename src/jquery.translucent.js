@@ -1,6 +1,6 @@
 /* 
- * jQuery translucent 1.0.9
- * Copyright (c) 2017, Sanggyeong Jo
+ * jQuery translucent 1.0.10
+ * Copyright (c) 2017, Yeonwoo Jo
  * Lisensed under the MIT
  * 
  * Dependencies:
@@ -9,7 +9,7 @@
  * Contacts
  *  Github : github.com/byeolbit
  *  Email : info@byeolbit.com
- *          sanggyeong.jo@gmail.com
+ *          yeonwoo.jo.92@gmail.com
  *
  * You can find this project at https://github.com/byeolbit/translucent
  */
@@ -19,7 +19,7 @@
     } else {
         factory(jQuery, window, document);
     }
-}(function($, window, document, undefined) {
+  }(function($, window, document, undefined) {
     var pluginName = 'translucent',
         /**
          * Default values for plugin
@@ -45,7 +45,7 @@
              */
             shadow: true
         };
-
+  
     /**
      * @constructor
      * @param {string} element - Target element of this plugin.
@@ -56,13 +56,13 @@
         this.element = element;
         this.bgElement = bgElement;
         this.options = $.extend({}, defaults, options);
-
+  
         this._defaults = defaults;
         this._name = pluginName;
         
         this.init();
     }
-
+  
     $.extend(Translucent.prototype, {
         /**
          * Initialize plugin
@@ -72,12 +72,12 @@
         init : function(){
             //Init variables
             var self = this;
-
+  
             self.$element = $(self.element);
             self.$bgElement = $(self.bgElement);
-
+  
             $.extend(this, self._initStructure(self.$element));
-
+  
             //Init style
             self._styleInit(self.$element,
                             self.$cardContents,
@@ -91,7 +91,7 @@
                                  self.cardBgStyle,
                                  self.options.filterValue);
             });
-
+  
             //Wait for full load of css
             $(window).bind('load',function() {
                 $.each(self.$element,function(){
@@ -101,11 +101,11 @@
                                      self.options.filterValue);
                 });
             });
-
+  
             self._observeBackgroundChange();
             self._observeStyleChange();
         },
-
+  
         /**
          * This destroys plugin.
          * 
@@ -118,7 +118,7 @@
             this.$cardContainer.remove();
             this._teardown(this);
         },
-
+  
         /**
          * Tear down plugin.
          * 
@@ -130,7 +130,7 @@
             $('#tl-Card-css').remove();
             $.removeData(self, 'plugin_'+self._name);
         },
-
+  
         /**
          * Generate elements to make card structure.
          * 
@@ -149,16 +149,16 @@
                 $cardContainer =
                     $('<div class = "tl-card-container"></div>').
                     appendTo($element);
-
+  
             $cardContents.appendTo($cardContainer);
-
+  
             return { $cardContents : $cardContents,
                      $cardBgContainer : $cardBgContainer,
                      $cardBg : $cardBg,
                      cardBgStyle : $cardBg[0].style,
                      $cardContainer : $cardContainer };
         },
-
+  
         /**
          * Initialize style of elements.
          * 
@@ -171,60 +171,101 @@
          */
         _styleInit : function($element, $cardContents, $cardContainer,
                              shadow, cardColor) {
-            if (shadow) {
-                $cardContainer.
-                     css('box-shadow', '0px 20px 20px rgba(0,0,0,0.5)');
-            }
 
-            $element.children().each(function(){
-                $(this).css({
-                    'height': $element.height(),
-                    'width': $element.width()
-                });
-            });
-
-            switch (cardColor) {
-                case 'clear':
-                    cardColor = 'rgba(255,255,255,0)';
-                    break;
-                case 'white':
-                    cardColor = 'rgba(255,255,255,0.4)';
-                    break;
-                case 'grey':
-                    cardColor = 'rgba(120,120,120,0.4)';
-                    break;
-                case 'black':
-                    cardColor = 'rgba(30,30,30,0.7)';
-                    break;
-            }
-
-            $cardContents.css('background-color', cardColor);
+            setShadow($cardContainer, shadow);
+            setChildrenSize($element);
+            setCardColor($cardContents, cardColor);
+            setAlign($cardContainer, $element);
+            setStyle();
             
-            //align card content
-            $cardContainer.position({
-                my: 'center',
-                at: 'center',
-                of: $element
-            });
+            /**
+             * Unify size of child elements to parent element.
+             * 
+             * @param {jQuery} $e - Target element
+             */
+            function setChildrenSize($e) {
+                var h = $e.height();
+                var w = $e.width();
+                $e.children().each(function(){
+                    $(this).css({
+                        'height': h,
+                        'width': w
+                    });
+                });
+            }
 
-            //escape if style exists in head
-            if (document.getElementById('tl-Card-css')) return;
+            /**
+             * If shadow is true, apply shadow effect to element.
+             * 
+             * @param {jQuery} $e - Target element  
+             * @param {boolean} shadow - Decides shadow
+             */
+            function setShadow($e, shadow) {
+                if (shadow) {
+                    $e.css('box-shadow', '0px 20px 20px rgba(0,0,0,0.5)');
+                }
+            }
 
-            var style = '<style type=\"text/css\" id="tl-Card-css">' +
-                        '.tl-card-container {'+
-                        'border: rgba(200,200,200,0.5) solid 1px;' +
-                        'border-radius: 10px; overflow: hidden;' +
-                        'position: relative; transition:' +
-                        ' box-shadow 0.4s ease;} ' +
-                        '.tl-card-bg-container {border-radius: 10px;' +
-                        'overflow: hidden; position: relative;} ' +
-                        '.tl-card-contents {overflow: hidden;' +
-                        'position: relative; border-radius: 10px;}' +
-                        '</style>';
+            /**
+             * Set the background color of element
+             * 
+             * @param {jQuery} $e - Target element 
+             * @param {string} color - Preset color or custom style
+             */
+            function setCardColor($e, color) {
+                switch (cardColor) {
+                    case 'clear':
+                        cardColor = 'rgba(255,255,255,0)';
+                        break;
+                    case 'white':
+                        cardColor = 'rgba(255,255,255,0.4)';
+                        break;
+                    case 'grey':
+                        cardColor = 'rgba(120,120,120,0.4)';
+                        break;
+                    case 'black':
+                        cardColor = 'rgba(30,30,30,0.7)';
+                        break;
+                }
+                $e.css('background-color', cardColor);
+            }
 
-            $(style).appendTo( "head" );
+            /**
+             * Align content to center of target element.
+             * 
+             * @param {jQuery} $e - content element 
+             * @param {jQuery} $of - align target
+             */
+            function setAlign($e, $of) {
+                $e.offset({
+                    top: $of.scrollTop(),
+                    left: $of.scrollLeft()
+                });
+            }
+
+            /**
+             * Add style to header
+             */
+            function setStyle() {
+                //escape if style exists in head
+                if (document.getElementById('tl-Card-css')) return;
+      
+                var style = '<style type=\"text/css\" id="tl-Card-css">' +
+                            '.tl-card-container {'+
+                            'border: rgba(200,200,200,0.5) solid 1px;' +
+                            'border-radius: 10px; overflow: hidden;' +
+                            'position: relative; transition:' +
+                            ' box-shadow 0.4s ease;} ' +
+                            '.tl-card-bg-container {border-radius: 10px;' +
+                            'overflow: hidden; position: relative;} ' +
+                            '.tl-card-contents {overflow: hidden;' +
+                            'position: relative; border-radius: 10px;}' +
+                            '</style>';
+      
+                $(style).appendTo( "head" );
+            }
         },
-
+  
         /**
          * Initialize background of card.
          * 
@@ -240,7 +281,7 @@
                 bgSize = $bgElement.css('background-size'),
                 cardHeight = $element.height(),
                 cardWidth = $element.width();
-
+  
             cardBgStyle.cssText = 
                 'background-image: ' + bgImg + '; ' +
                 'background-repeat: ' + bgRepeat + '; ' +
@@ -249,14 +290,14 @@
                 'margin-top: -' + (filterValue) + 'px; ' +
                 'height: ' + (cardHeight + filterValue * 2) + 'px; ' +
                 'width: ' + (cardWidth + filterValue * 2) + 'px;';
-
+  
             cardBgStyle.backgroundSize = _getPixelSize($bgElement,
                                                        bgImg,
                                                        bgSize);
-
+  
             this._applyTransparent($element, $bgElement,
                                   cardBgStyle, filterValue);
-
+  
             /**
              * Get original size of image
              * 
@@ -266,14 +307,14 @@
              */
             function _getNaturalSize(bgUrl) {
                 bgUrl = bgUrl.slice(4, -1).replace(/"/g, "");
-
+  
                 var newImage = new Image();
                 $(newImage).attr('src',bgUrl);
                 
                 return { width: newImage.naturalWidth,
                          height: newImage.naturalHeight};
             }
-
+  
             /**
              * Get pixel size of background-image from cover and percent.
              * 
@@ -287,7 +328,7 @@
                 var naturalSize = _getNaturalSize(bgImg),
                     bgHeight,
                     bgWidth;
-
+  
                 if (size == 'cover') {
                     bgHeight = $bgElement.height();
                     bgWidth = naturalSize.width * (bgHeight/naturalSize.height);
@@ -300,7 +341,7 @@
                 return bgWidth+'px '+bgHeight+'px';
             }
         },
-
+  
         /**
          * Apply translucent background to background element.
          * 
@@ -315,18 +356,18 @@
             var bgAtt = $bgElement.css('backgroundAttachment'),
                 bgOffset = $bgElement.offset(),
                 cardOffset = $element.offset();
-
+  
             cardBgStyle.backgroundAttachment = bgAtt;
-
+  
             // If background-attachment is fixed,
             // don't need to track the card offset.
             if (bgAtt == 'fixed') return;
-
+  
             cardBgStyle.backgroundPosition = 
                 (bgOffset.left - (cardOffset.left - filterValue)) + 'px ' +
                 (bgOffset.top - (cardOffset.top - filterValue)) + 'px';
         },
-
+  
         /**
          * Observe style of background.
          * Init card when it changes.
@@ -336,7 +377,7 @@
         _observeBackgroundChange : function() {
             var self = this,
                 bgElement = self.$bgElement[0];
-
+  
              self.bgObserver = new MutationObserver(function(mutations) {
                  mutations.forEach(function(mutation) {
                      self._cardBgInit(self.$element,
@@ -345,11 +386,11 @@
                                       self.options.filterValue);
                 });
              });
-
+  
              var config = { attributes: true, attributeFilter: ['style'] };
              self.bgObserver.observe(bgElement, config);
         },
-
+  
         /**
          * Observe change of size ond offset.
          * Change style of card when it changes.
@@ -362,7 +403,7 @@
                 offsetData = self.$element.offset(),
                 sizeHeight = self.$element.height(),
                 sizeWidth = self.$element.width();
-
+  
             self.styleObserver = new MutationObserver(function(mutations) {
                 mutations.forEach(function(mutation) {
                     if (offsetData !== self.$element.offset()) {
@@ -372,10 +413,10 @@
                                                self.cardBgStyle,
                                                self.options.filterValue);
                     }
-
+  
                     var cHeight = self.$element.height(),
                         cWidth = self.$element.width();
-
+  
                     if ((sizeHeight == cHeight) || (sizeWidth == cWidth)) {
                         sizeHeight = cHeight;
                         sizeWidth = cWidth;
@@ -386,14 +427,14 @@
                     }
                 });
             });
-
+  
             var config = { attributes: true,
                            childList: true,
                            characterData: true,
                            attributeFilter: ['style'] };
             self.styleObserver.observe(element, config);
         },
-
+  
         /**
          * Change amount of blur
          * 
@@ -403,20 +444,20 @@
         blur : function(filterValue) {
             var self = this;
             this.options.filterValue = filterValue;
-
+  
             self._cardBgInit(self.$element,
                              self.$bgElement,
                              self.cardBgStyle,
                              self.options.filterValue);
         }
     });
-
+  
     /**
      * Register plugin within jQuery plugins.
      */
     $.fn[pluginName] = function ( options ) {
         var args = arguments;
-
+  
         if ((args[1] === undefined ||
             typeof args[1] === 'object') &&
             options[0] === '#'){
@@ -435,7 +476,7 @@
             return this.each(function() {
                 var instance = $.data(this, 'plugin_' + pluginName),
                     slicedArgs = Array.prototype.slice.call(args, 1);
-
+  
                 if (instance instanceof Translucent &&
                     typeof instance[options] === 'function') {
                     instance[options].apply(instance, slicedArgs);
@@ -443,4 +484,5 @@
             });
         } 
     };
-}));
+  }));
+  
