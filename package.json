@@ -15,10 +15,10 @@
     "effect",
     "jQuery"
   ],
-  "version": "1.0.9",
-  "author": "Sanggyeong Jo <sanggyeong.jo@gmil.com> (https://github.com/byeolbit)",
+  "version": "1.0.10",
+  "author": "Yeonwoo Jo <Yeonwoo.jo.92@gmil.com> (https://github.com/byeolbit)",
   "maintainers": [
-    "Sanggyeong Jo <sanggyeong.jo@gmil.com> (https://github.com/byeolbit)"
+    "Yeonwoo Jo <Yeonwoo.jo.92@gmil.com> (https://github.com/byeolbit)"
   ],
   "licenses": [
     {
@@ -34,12 +34,21 @@
     "url": "https://github.com/byeolbit/translucent/issues"
   },
   "homepage": "https://byeolbit.github.io/translucent",
+  "main": "./dist/jquery.translucent.min.js",
+  "scripts" : {
+    "build" : "npm install && npm run grunt",
+    "test" : "npm run grunt qunit",
+    "watch" : "npm run grunt watch",
+    "grunt" : "node_modules\/grunt\/bin\/grunt"
+  },
   "dependencies": {
     "jquery": ">=1.6"
   },
-  "main": "./dist/jquery.translucent.min.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+  "devDependencies": {
+    "grunt": "^1.0.1",
+    "grunt-contrib-qunit": "^2.0.0",
+    "grunt-contrib-uglify": "^3.0.1",
+    "grunt-contrib-watch": "^1.0.0"
   },
   "license": "MIT"
 }
