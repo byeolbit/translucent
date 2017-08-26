@@ -112,7 +112,7 @@
          * @public
          */
         destroy : function () {
-            this.$element.unbind('destroyed',this._teardown());
+            this.$element.unbind('destroyed',this._teardown(this));
             this.$cardBgContainer.empty().remove();
             this.$cardContents.detach().appendTo(this.$element);
             this.$cardContainer.remove();
@@ -128,7 +128,7 @@
             self.styleObserver.disconnect();
             self.bgObserver.disconnect();
             $('#tl-Card-css').remove();
-            $.removeData(self, 'plugin_'+self._name);
+            $.removeData(self.element, 'plugin_'+self._name);
         },
   
         /**
