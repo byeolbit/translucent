@@ -48,8 +48,8 @@ module.exports = function(config) {
       dir: 'coverage',
       reporters: [
         // reporters not supporting the `file` property
-        { type: 'html', subdir: 'report-html' },
-        { type: 'lcov', subdir: 'report-lcov' }
+        { type: 'lcovonly', subdir: '.' },
+        {type:'json', subdir: '.'}
       ]
     },
     // web server port

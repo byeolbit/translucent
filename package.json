@@ -38,7 +38,8 @@
   "scripts": {
     "build": "npm install && npm test && npm run grunt uglify",
     "test": "karma start",
-    "grunt": "node_modules/grunt/bin/grunt"
+    "grunt": "node_modules/grunt/bin/grunt",
+    "report-coverage": "codecov"
   },
   "dependencies": {
     "jquery": ">=1.6"
