@@ -16,4 +16,4 @@ before_script:
 script:
   - npm run build
 after_script:
-  - codeclimate-test-reporter < lcov.info
+  - if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT; fi
