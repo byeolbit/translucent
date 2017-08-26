@@ -12,4 +12,4 @@ script:
   - codecov
   - npm run grunt uglify
 after_script:
-  - bash <(curl -s https://codecov.io/bash) -t 4a268acd-8fad-4e84-b3a3-4b870ddd4909
+  - bash <(curl -s https://codecov.io/bash) -t ${codecovTag}
