@@ -35,20 +35,22 @@
   },
   "homepage": "https://byeolbit.github.io/translucent",
   "main": "./dist/jquery.translucent.min.js",
-  "scripts" : {
-    "build" : "npm install && npm run grunt",
-    "test" : "npm run grunt qunit",
-    "watch" : "npm run grunt watch",
-    "grunt" : "node_modules\/grunt\/bin\/grunt"
+  "scripts": {
+    "build": "npm install && npm test && npm run grunt uglify",
+    "test": "karma start",
+    "grunt": "node_modules/grunt/bin/grunt"
   },
   "dependencies": {
     "jquery": ">=1.6"
   },
   "devDependencies": {
     "grunt": "^1.0.1",
-    "grunt-contrib-qunit": "^2.0.0",
     "grunt-contrib-uglify": "^3.0.1",
-    "grunt-contrib-watch": "^1.0.0"
+    "karma": "^1.7.0",
+    "karma-chrome-launcher": "^2.2.0",
+    "karma-coverage": "^1.1.1",
+    "karma-qunit": "^1.2.1",
+    "qunitjs": "^2.4.0"
   },
   "license": "MIT"
 }
