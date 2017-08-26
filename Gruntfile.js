@@ -24,18 +24,9 @@ module.exports = function(grunt) {
         src: 'src/jquery.<%= pkg.name %>.js',
         dest: 'dist/jquery.<%= pkg.name %>-<%= pkg.version %>.min.js'
       }
-    },
-    qunit: {
-      all: ['test/index.html']
-    },
-    watch: {
-      files: ['test/tests.js', 'tests/index.html', 'src/*.js'],
-      tasks: ['qunit']
     }
   });
-  grunt.loadNpmTasks('grunt-contrib-qunit');
   grunt.loadNpmTasks('grunt-contrib-uglify');
-  grunt.loadNpmTasks('grunt-contrib-watch');
 
-  grunt.registerTask('default', ['qunit','uglify']);
+  grunt.registerTask('default', ['uglify']);
 }
