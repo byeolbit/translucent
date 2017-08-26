@@ -24,6 +24,9 @@ Thumbs.db
 !.vscode/launch.json
 !.vscode/extensions.json
 
+# Code coverage report
+coverage/
+
 # misc
 npm-debug.log
 cookies.txt
