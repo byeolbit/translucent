@@ -89,7 +89,8 @@
             $(window).resize(function(){
                 self._cardBgInit(self.$element, self.$bgElement,
                                  self.cardBgStyle,
-                                 self.options.filterValue);
+                                 self.options.filterValue,
+                                 self._alignCardBackground);
             });
   
             //Wait for full load of css
@@ -98,7 +99,8 @@
                     //Init card background
                     self._cardBgInit(self.$element, self.$bgElement,
                                      self.cardBgStyle,
-                                     self.options.filterValue);
+                                     self.options.filterValue,
+                                     self._alignCardBackground);
                 });
             });
   
@@ -168,6 +170,8 @@
          * @param {jQuery} $cardContainer - Container element of cardContents.
          * @param {boolean} shadow - Decides apply shadow effect.
          * @param {string} cardColor - Color of card.
+         * 
+         * @return {Object} - return local functions
          */
         _styleInit : function($element, $cardContents, $cardContainer,
                              shadow, cardColor) {
@@ -181,6 +185,7 @@
             /**
              * Unify size of child elements to parent element.
              * 
+             * @private
              * @param {jQuery} $e - Target element
              */
             function setChildrenSize($e) {
@@ -197,22 +202,24 @@
             /**
              * If shadow is true, apply shadow effect to element.
              * 
+             * @private
              * @param {jQuery} $e - Target element  
              * @param {boolean} shadow - Decides shadow
              */
             function setShadow($e, shadow) {
                 if (shadow) {
-                    $e.css('box-shadow', '0px 20px 20px rgba(0,0,0,0.5)');
+                    $e.css('box-shadow', 'rgba(0, 0, 0, 0.5) 0px 20px 20px');
                 }
             }
 
             /**
              * Set the background color of element
              * 
+             * @private
              * @param {jQuery} $e - Target element 
-             * @param {string} color - Preset color or custom style
+             * @param {string} cardColor - Preset color or custom style
              */
-            function setCardColor($e, color) {
+            function setCardColor($e, cardColor) {
                 switch (cardColor) {
                     case 'clear':
                         cardColor = 'rgba(255,255,255,0)';
@@ -233,22 +240,26 @@
             /**
              * Align content to center of target element.
              * 
+             * @private
              * @param {jQuery} $e - content element 
              * @param {jQuery} $of - align target
              */
             function setAlign($e, $of) {
                 $e.offset({
-                    top: $of.scrollTop(),
-                    left: $of.scrollLeft()
+                    top: $of.offset().top,
+                    left: $of.offset().left
                 });
             }
 
             /**
              * Add style to header
+             * 
+             * @private
+             * @return {boolean} - If style added to header, return true
              */
             function setStyle() {
                 //escape if style exists in head
-                if (document.getElementById('tl-Card-css')) return;
+                if (document.getElementById('tl-Card-css')) return false;
       
                 var style = '<style type=\"text/css\" id="tl-Card-css">' +
                             '.tl-card-container {'+
@@ -263,6 +274,16 @@
                             '</style>';
       
                 $(style).appendTo( "head" );
+
+                return true;
+            }
+
+            return {
+                setAlign: setAlign,
+                setChildrenSize: setChildrenSize,
+                setCardColor: setCardColor,
+                setShadow: setShadow,
+                setStyle: setStyle
             }
         },
   
@@ -274,8 +295,11 @@
          * @param {jQuery} $bgElement - Background element.
          * @param {element.style} cardBgStyle - Style of card background.
          * @param {number} filterValue - Amount of filter.
+         * @param {function} alignFunction - Function for align bg-card
          */
-        _cardBgInit : function($element, $bgElement, cardBgStyle, filterValue) {
+        _cardBgInit : function($element, $bgElement,
+                               cardBgStyle, filterValue,
+                               alignFunction) {
             var bgImg = $bgElement.css('background-image'),
                 bgRepeat = $bgElement.css('background-repeat'),
                 bgSize = $bgElement.css('background-size'),
@@ -293,10 +317,10 @@
   
             cardBgStyle.backgroundSize = _getPixelSize($bgElement,
                                                        bgImg,
-                                                       bgSize);
+                                                       bgSize,
+                                                       _getNaturalSize);
   
-            this._applyTransparent($element, $bgElement,
-                                  cardBgStyle, filterValue);
+            alignFunction($element, $bgElement, cardBgStyle, filterValue);
   
             /**
              * Get original size of image
@@ -312,7 +336,8 @@
                 $(newImage).attr('src',bgUrl);
                 
                 return { width: newImage.naturalWidth,
-                         height: newImage.naturalHeight};
+                         height: newImage.naturalHeight,
+                         src: bgUrl };
             }
   
             /**
@@ -322,10 +347,12 @@
              * @param {jQuery} $bgElement - Element that has background.
              * @param {string} url - Url of background-image.
              * @param {string} size - CSS background-size property.
+             * @param {function} getNaturalSize - Function to get natural size
              * @return {string} - Size changed into pixel.
              */
-            function _getPixelSize($bgElement, url, size) {
-                var naturalSize = _getNaturalSize(bgImg),
+            function _getPixelSize($bgElement, url, size, getNaturalSize) {
+                var bgUrl = $bgElement.css('background-image'),
+                    naturalSize = getNaturalSize(bgUrl),
                     bgHeight,
                     bgWidth;
   
@@ -343,7 +370,7 @@
         },
   
         /**
-         * Apply translucent background to background element.
+         * Align translucent background element.
          * 
          * @private
          * @param {jQuery} $element - Target element of this plugin.
@@ -351,8 +378,8 @@
          * @param {element.style} cardBgStyle - Style of card background.
          * @param {number} filterValue - Amount of filter.
          */
-        _applyTransparent : function($element, $bgElement,
-                                    cardBgStyle, filterValue) {
+        _alignCardBackground : function($element, $bgElement,
+                                        cardBgStyle, filterValue) {
             var bgAtt = $bgElement.css('backgroundAttachment'),
                 bgOffset = $bgElement.offset(),
                 cardOffset = $element.offset();
@@ -383,7 +410,8 @@
                      self._cardBgInit(self.$element,
                                       self.$bgElement,
                                       self.cardBgStyle,
-                                      self.options.filterValue);
+                                      self.options.filterValue,
+                                      self._alignCardBackground);
                 });
              });
   
@@ -408,10 +436,10 @@
                 mutations.forEach(function(mutation) {
                     if (offsetData !== self.$element.offset()) {
                         offsetData = self.$element.offset();
-                        self._applyTransparent(self.$element,
-                                               self.$bgElement,
-                                               self.cardBgStyle,
-                                               self.options.filterValue);
+                        self._alignCardBackground(self.$element,
+                                                  self.$bgElement,
+                                                  self.cardBgStyle,
+                                                  self.options.filterValue);
                     }
   
                     var cHeight = self.$element.height(),
@@ -423,7 +451,8 @@
                         self._cardBgInit(self.$element,
                                          self.$bgElement,
                                          self.cardBgStyle,
-                                         self.options.filterValue);
+                                         self.options.filterValue,
+                                         self._alignCardBackground);
                     }
                 });
             });
@@ -448,7 +477,8 @@
             self._cardBgInit(self.$element,
                              self.$bgElement,
                              self.cardBgStyle,
-                             self.options.filterValue);
+                             self.options.filterValue,
+                             self._alignCardBackground);
         }
     });
   
