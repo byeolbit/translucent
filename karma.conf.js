@@ -18,6 +18,7 @@ module.exports = function(config) {
     files: [
       //library
       'test/lib/jquery-1.6.min.js',
+      'test/lib/mocking.js',
       
       //source
       'src/jquery.translucent.js',
