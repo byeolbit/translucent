@@ -1,8 +1,6 @@
-var mock = {};
-
 function mocking(func, method) {
   var start = func.indexOf('function '+method);
-  var closure = 0;
+  var closure = 1;
   var chk_private;
   var res = '';
   start = func.indexOf('{',start);
@@ -12,7 +10,7 @@ function mocking(func, method) {
     } else if (func[i] === '}') {
       --closure;
       if (!closure) {
-        return res+func[i]+';';
+        return res;
       }
     } else if (func[i] === '_') {
       if (func[i] === func[i+1]) {
