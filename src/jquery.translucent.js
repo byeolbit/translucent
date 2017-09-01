@@ -170,7 +170,7 @@
          * @return {Object} - return local functions
          */
         _styleInit : function($element, $cardContents, $cardContainer,
-                             shadow, cardColor) {
+                              shadow, cardColor) {
 
             setShadow($cardContainer, shadow);
             setChildrenSize($element);
@@ -349,14 +349,12 @@
             function _getPixelSize($bgElement, url, size, getNaturalSize) {
                 var bgUrl = $bgElement.css('background-image'),
                     naturalSize = getNaturalSize(bgUrl),
-                    bgHeight,
-                    bgWidth;
+                    bgHeight = $bgElement.height(),
+                    bgWidth = $bgElement.width();
   
                 if (size === 'cover') {
-                    bgHeight = $bgElement.height();
                     bgWidth = naturalSize.width * (bgHeight/naturalSize.height);
                 } else if (size.indexOf('%') !== -1) {
-                    bgWidth = $bgElement.width();
                     bgHeight = naturalSize.height * (bgWidth/naturalSize.width);
                 } else {
                     return size;
