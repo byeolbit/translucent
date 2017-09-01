@@ -26,8 +26,7 @@ Firefox 35.0 | Chrome 53.0  | Safari 6 | Edge 38.0 | Opera 40.0
 ## How to use translucent
 
 ### 1. Get plugin
-- Download [zip](https://github.com/byeolbit/translucent/archive/master.zip) or [tar.gz](https://github.com/byeolbit/translucent/archive/master.tar.gz) archive.
-- npm : `npm install translucent`
+- Download [compressed version](https://github.com/byeolbit/translucent/releases/download/1.0.10/jquery.translucent-1.0.10.min.js) or [non-compressed version](https://github.com/byeolbit/translucent/releases/download/1.0.10/jquery.translucent-1.0.10.js)
 
 ### 2. Insert script into your HTML
 ```html
