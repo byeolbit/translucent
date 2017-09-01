@@ -1,4 +1,4 @@
-# Translucent [![Build Status](https://travis-ci.org/byeolbit/translucent.svg?branch=1.0.10)](https://travis-ci.org/byeolbit/translucent)
+# Translucent [![Build Status](https://travis-ci.org/byeolbit/translucent.svg?branch=master)](https://travis-ci.org/byeolbit/translucent) [![codecov](https://codecov.io/gh/byeolbit/translucent/branch/master/graph/badge.svg)](https://codecov.io/gh/byeolbit/translucent)
 ### Transparent card theme - jQuery plugin. 
 <img src="https://github.com/byeolbit/byeolbit.github.io/raw/master/title.png?raw=true" alt="Title image" style="max-width:100%;">
 
