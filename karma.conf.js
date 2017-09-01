@@ -24,7 +24,7 @@ module.exports = function(config) {
       'src/jquery.translucent.js',
 
       //test
-      'test/*',
+      'test/*'
     ],
 
 
