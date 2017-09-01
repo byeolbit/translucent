@@ -15,10 +15,10 @@
     "effect",
     "jQuery"
   ],
-  "version": "1.0.9",
-  "author": "Sanggyeong Jo <sanggyeong.jo@gmil.com> (https://github.com/byeolbit)",
+  "version": "1.0.10",
+  "author": "Yeonwoo Jo <Yeonwoo.jo.92@gmil.com> (https://github.com/byeolbit)",
   "maintainers": [
-    "Sanggyeong Jo <sanggyeong.jo@gmil.com> (https://github.com/byeolbit)"
+    "Yeonwoo Jo <Yeonwoo.jo.92@gmil.com> (https://github.com/byeolbit)"
   ],
   "licenses": [
     {
@@ -34,12 +34,24 @@
     "url": "https://github.com/byeolbit/translucent/issues"
   },
   "homepage": "https://byeolbit.github.io/translucent",
+  "main": "./dist/jquery.translucent.min.js",
+  "scripts": {
+    "build": "npm install && npm test && npm run grunt uglify",
+    "test": "karma start",
+    "grunt": "node_modules/grunt/bin/grunt",
+    "report-coverage": "codecov"
+  },
   "dependencies": {
     "jquery": ">=1.6"
   },
-  "main": "./dist/jquery.translucent.min.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+  "devDependencies": {
+    "grunt": "^1.0.1",
+    "grunt-contrib-uglify": "^3.0.1",
+    "karma": "^1.7.0",
+    "karma-chrome-launcher": "^2.2.0",
+    "karma-coverage": "^1.1.1",
+    "karma-qunit": "^1.2.1",
+    "qunitjs": "^2.4.0"
   },
   "license": "MIT"
 }

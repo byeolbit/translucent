@@ -14,16 +14,16 @@
     "effect",
     "jQuery"
   ],
-  "version": "1.0.9",
+  "version": "1.0.10",
   "author": {
-    "name": "Sanggyeong Jo",
-    "email": "sanggyeong.jo@gmil.com",
+    "name": "Yeonwoo Jo",
+    "email": "Yeonwoo.jo.92@gmil.com",
     "url": "https://github.com/byeolbit"
   },
   "maintainers": [
         {
-            "name": "Sanggyeong Jo",
-            "email": "sanggyeong.jo@gmil.com",
+            "name": "Yeonwoo Jo",
+            "email": "Yeonwoo.jo.92@gmil.com",
             "url": "https://github.com/byeolbit"
         }
   ],
