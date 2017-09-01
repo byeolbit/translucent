@@ -356,7 +356,7 @@
                     bgHeight,
                     bgWidth;
   
-                if (size == 'cover') {
+                if (size === 'cover') {
                     bgHeight = $bgElement.height();
                     bgWidth = naturalSize.width * (bgHeight/naturalSize.height);
                 } else if (size.indexOf('%') !== -1) {
@@ -388,7 +388,7 @@
   
             // If background-attachment is fixed,
             // don't need to track the card offset.
-            if (bgAtt == 'fixed') return;
+            if (bgAtt === 'fixed') return;
   
             cardBgStyle.backgroundPosition = 
                 (bgOffset.left - (cardOffset.left - filterValue)) + 'px ' +
@@ -445,7 +445,7 @@
                     var cHeight = self.$element.height(),
                         cWidth = self.$element.width();
   
-                    if ((sizeHeight == cHeight) || (sizeWidth == cWidth)) {
+                    if ((sizeHeight === cHeight) || (sizeWidth === cWidth)) {
                         sizeHeight = cHeight;
                         sizeWidth = cWidth;
                         self._cardBgInit(self.$element,
