@@ -72,36 +72,32 @@
         init : function(){
             //Init variables
             var self = this;
-  
+            
             self.$element = $(self.element);
             self.$bgElement = $(self.bgElement);
-  
+            
             $.extend(this, self._initStructure(self.$element));
-  
+            
             //Init style
             self._styleInit(self.$element,
-                            self.$cardContents,
-                            self.$cardContainer,
-                            self.options.shadow,
-                            self.options.cardColor);
-            
-            //React to window size
-            $(window).resize(function(){
+                self.$cardContents,
+                self.$cardContainer,
+                self.options.shadow,
+                self.options.cardColor);
+                
+            var cb_cardBgInit = function(){
                 self._cardBgInit(self.$element, self.$bgElement,
                                  self.cardBgStyle,
                                  self.options.filterValue,
                                  self._alignCardBackground);
-            });
+            };
+
+            //React to window size
+            $(window).resize(cb_cardBgInit);
   
             //Wait for full load of css
             $(window).bind('load',function() {
-                $.each(self.$element,function(){
-                    //Init card background
-                    self._cardBgInit(self.$element, self.$bgElement,
-                                     self.cardBgStyle,
-                                     self.options.filterValue,
-                                     self._alignCardBackground);
-                });
+                $.each(self.$element,cb_cardBgInit);
             });
   
             self._observeBackgroundChange();
