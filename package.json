@@ -15,7 +15,7 @@
     "effect",
     "jQuery"
   ],
-  "version": "1.0.10",
+  "version": "1.0.11",
   "author": "Yeonwoo Jo <Yeonwoo.jo.92@gmil.com> (https://github.com/byeolbit)",
   "maintainers": [
     "Yeonwoo Jo <Yeonwoo.jo.92@gmil.com> (https://github.com/byeolbit)"
@@ -34,24 +34,41 @@
     "url": "https://github.com/byeolbit/translucent/issues"
   },
   "homepage": "https://byeolbit.github.io/translucent",
-  "main": "./dist/jquery.translucent.min.js",
+  "main": "./dist/translucent.js",
   "scripts": {
-    "build": "npm install && npm test && npm run grunt uglify",
+    "build": "webpack --mode production",
+    "dev": "webpack",
     "test": "karma start",
-    "grunt": "node_modules/grunt/bin/grunt",
     "report-coverage": "codecov"
   },
   "dependencies": {
     "jquery": ">=1.6"
   },
   "devDependencies": {
+    "@babel/cli": "^7.0.0-beta.44",
+    "@babel/core": "^7.0.0-beta.44",
+    "@babel/plugin-transform-runtime": "^7.0.0-beta.44",
+    "@babel/polyfill": "^7.0.0-beta.44",
+    "@babel/preset-env": "^7.0.0-beta.44",
+    "@babel/preset-flow": "^7.0.0-beta.44",
+    "@babel/preset-stage-0": "^7.0.0-beta.44",
+    "@babel/register": "^7.0.0-beta.44",
+    "babel-eslint": "^8.0.0",
+    "babel-loader": "^8.0.0-beta.1",
+    "babel-polyfill": "^6.26.0",
+    "css-loader": "^0.28.11",
     "grunt": "^1.0.1",
     "grunt-contrib-uglify": "^3.0.1",
-    "karma": "^1.7.0",
+    "karma": "^2.0.2",
+    "karma-babel-preprocessor": "^8.0.0-beta.0",
+    "karma-chai": "^0.1.0",
     "karma-chrome-launcher": "^2.2.0",
     "karma-coverage": "^1.1.1",
-    "karma-qunit": "^1.2.1",
-    "qunitjs": "^2.4.0"
+    "mini-css-extract-plugin": "^0.4.0",
+    "style-loader": "^0.21.0",
+    "uglifyjs-webpack-plugin": "^1.2.5",
+    "webpack": "^4.10.2",
+    "webpack-cli": "^2.1.4"
   },
   "license": "MIT"
 }
