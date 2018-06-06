@@ -2,14 +2,14 @@ sudo: required
 dist: trusty
 language: node_js
 node_js:
-  - "7"
+  - "9"
 install:
   - npm install
 before_script:
   - npm install -g codecov
 script:
   - npm test
+  - npm run build
   - codecov
-  - npm run grunt uglify
 after_script:
   - bash <(curl -s https://codecov.io/bash) -t ${codecovTag}

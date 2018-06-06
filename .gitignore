@@ -2,9 +2,6 @@
 .DS_Store
 Thumbs.db
 
-# compiled output
-/dist
-
 # dependencies
 /node_modules
 
@@ -28,5 +25,8 @@ Thumbs.db
 coverage/
 
 # misc
+package-lock.json
 npm-debug.log
 cookies.txt
+
+dist/main.js

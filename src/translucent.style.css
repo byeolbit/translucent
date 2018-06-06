@@ -1,0 +1,19 @@
+.tl-card-contents-container {
+  border: rgba(200,200,200,0.5) solid 1px;
+  border-radius: 10px;
+  overflow: hidden;
+  position: relative;
+  transition: box-shadow 0.4s ease;
+}
+
+.tl-card-bg-container {
+  border-radius: 10px;
+  overflow: hidden;
+  position: relative;
+} 
+
+.tl-card-contents {
+  overflow: hidden;
+  position: relative;
+  border-radius: 10px;
+}
