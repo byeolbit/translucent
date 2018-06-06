@@ -124,13 +124,13 @@ Translucent.destroy();
 ### 3. Apply translucent to your card element in script
 
 ```javascript
-$('.your-element').translucent();
+$('.your-element').Translucent();
 ```
 or you can customize options.
 
 
 ```javascript
-$('.your-element').translucent({
+$('.your-element').Translucent({
     background: '.your-background', // id or class name
     filterValue : 5,     // int
     cardColor : 'clear', // preset color or your own color
@@ -168,7 +168,7 @@ Change amount of blur for background.
 #### Example
 ```javascript
 // Apply 20 blur to background
-$('.your-element').translucent('blur', 20);
+$('.your-element').Translucent('blur', 20);
 ```
 
 ### .translucent( *'destroy'* )
@@ -176,7 +176,7 @@ Destroy translucent from the element.
 
 #### Example
 ```javascript
-$('.your-element').translucent('destroy');
+$('.your-element').Translucent('destroy');
 ```
 
 <br/>
