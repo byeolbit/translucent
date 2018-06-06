@@ -6,10 +6,9 @@ import * as _ from './translucent';
  * @param {object} options - Option for this plugin.
  */
 function Translucent(element, options) {
-  NodeList.prototype.forEach = Array.prototype.forEach;
   let _translucent = new _.Translucent(element, options);
-  this.blur = _translucent.blur;
-  this.destroy = _translucent.destroy;
+  this.blur = _translucent.blur.bind(_translucent);
+  this.destroy = _translucent.destroy.bind(_translucent);
 }
 
 export {Translucent};

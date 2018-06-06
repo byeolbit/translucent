@@ -8,7 +8,7 @@ class Styler {
    * @param {boolean} shadow - Decides apply shadow effect.
    * @param {string} cardColor - Color of card.
    */
-  static init(element, shadow, cardColor) {
+  constructor(element, shadow, cardColor) {
     let contentsContainer = element.querySelector('.tl-card-contents-container'),
         contents = element.querySelector('.tl-card-contents');
     this.setShadow(contentsContainer, shadow);
@@ -21,7 +21,7 @@ class Styler {
    * Unify size of child elements to parent element.
    * @param {HTMLElement} element - Target element
    */
-  static setChildrenSize(element) {
+  setChildrenSize(element) {
     let h = element.clientHeight,
         w = element.clientWidth,
         children = element.children;
@@ -38,7 +38,7 @@ class Styler {
    * @param {HTMLElement} element - Target element  
    * @param {boolean} shadow - Decides shadow
    */
-  static setShadow(element, shadow) {
+  setShadow(element, shadow) {
     if (shadow) {
       element.style.boxShadow = 'rgba(0, 0, 0, 0.5) 0px 20px 20px';
     }
@@ -51,7 +51,7 @@ class Styler {
    * @param {HTMLElement} element - Target element 
    * @param {string} cardColor - Preset color or custom style
    */
-  static setCardColor(element, cardColor) {
+  setCardColor(element, cardColor) {
     switch (cardColor) {
     case 'clear':
         cardColor = COLOR.CLEAR;
@@ -74,7 +74,7 @@ class Styler {
    * 
    * @param {HTMLElement} element - content element 
    */
-  static setAlign(element, baseElement) {
+  setAlign(element, baseElement) {
     element.style.top = `-${baseElement.clientHeight}px`;
     element.style.left = `0px`;
   }
@@ -88,7 +88,7 @@ class Styler {
    * @param {number} filterValue - Amount of filter.
    * @param {function} alignCallback - callback for align bg-card
    */
-  static cardBgInit(element, bgElement, cardBgStyle, filterValue, alignCallback) {
+  cardBgInit(element, bgElement, cardBgStyle, filterValue, alignCallback) {
     let style = window.getComputedStyle(bgElement,null),
         img = style['backgroundImage'],
         repeat = style['backgroundRepeat'],
@@ -117,21 +117,22 @@ class Styler {
    * @param {CSSStyleDeclaration} cardBgStyle - Style of background card element.
    * @param {number} filterValue - Amount of filter.
    */
-  static alignCardBackground(element, bgElement, cardBgStyle, filterValue) {
-    let bgAttatchment = bgElement.style.backgroundAttachment,
+  alignCardBackground(element, bgElement, cardBgStyle, filterValue) {
+    let style = window.getComputedStyle(bgElement,null),
+        bgAttatchment = style['backgroundAttachment'],
         bgOffset = getOffset(bgElement),
-        cardOffset = getOffset(element),
-        style = bgElement.style;
+        cardOffset = getOffset(element);
 
     cardBgStyle.backgroundAttachment = bgAttatchment;
 
-    // If background-attachment is fixed,
-    // don't need to track the card offset.
-    if (bgAttatchment === 'fixed') return;
+    if (bgAttatchment === 'fixed') {
+      cardBgStyle.backgroundPosition = style['backgroundPosition'];
+    } else {
+      cardBgStyle.backgroundPosition = 
+        (bgOffset.left - (cardOffset.left - filterValue)) + 'px ' +
+        (bgOffset.top - (cardOffset.top - filterValue)) + 'px';
+    }
 
-    cardBgStyle.backgroundPosition = 
-      (bgOffset.left - (cardOffset.left - filterValue)) + 'px ' +
-      (bgOffset.top - (cardOffset.top - filterValue)) + 'px';
   }
 }
 

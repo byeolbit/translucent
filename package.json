@@ -36,8 +36,8 @@
   "homepage": "https://byeolbit.github.io/translucent",
   "main": "./dist/translucent.js",
   "scripts": {
-    "build": "webpack --mode production",
-    "dev": "webpack",
+    "build": "webpack --config ./webpack/config.prod.js",
+    "dev": "webpack-dev-server --config ./webpack/config.dev.js --hot",
     "test": "karma start",
     "report-coverage": "codecov"
   },
@@ -68,7 +68,8 @@
     "style-loader": "^0.21.0",
     "uglifyjs-webpack-plugin": "^1.2.5",
     "webpack": "^4.10.2",
-    "webpack-cli": "^2.1.4"
+    "webpack-cli": "^2.1.4",
+    "webpack-dev-server": "^3.1.4"
   },
   "license": "MIT"
 }

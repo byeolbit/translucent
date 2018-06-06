@@ -2,6 +2,8 @@ import {getElement, getOffset} from './util';
 import {Styler} from './styler';
 import './translucent.style.css';
 
+NodeList.prototype.forEach = Array.prototype.forEach;
+
 const DEFAULTS = {
   /** 
    * Amount of blur minimum is 0
@@ -23,6 +25,8 @@ const DEFAULTS = {
    * @defaultvalue
    */
   shadow: true,
+
+  bgElement: undefined
 }
 
 class Translucent {
@@ -32,32 +36,30 @@ class Translucent {
    * @param {object} options - Option for this plugin.
    */
   constructor(element, options) {
+    this.origin = element.outerHTML;
     // If element is selector, get the HTMLElement
     this.element = getElement(element);
     this.options = {...DEFAULTS, ...options};
-    this.bgElement = options.bgElement || element.parentElement;
+    this.bgElement = this.options.bgElement || element.parentElement;
 
     this._initStructure(this.element);
 
-    Styler.init(
-      this.element,
-      this.options.filterValue,
-      this.options.cardColor
-    );
+    this.styler = new Styler(this.element, this.options.shadow, this.options.cardColor);
 
-    let bgInitCallback =
-      Styler.cardBgInit.bind(
+    this.bgInitCallback =
+      this.styler.cardBgInit.bind(
         this,
         this.element,
         this.bgElement,
         this.cardBgStyle,
         this.options.filterValue,
-        Styler.alignCardBackground
-      )
+        this.styler.alignCardBackground
+      );
 
-    window.onresize = bgInitCallback;
-    window.onload = bgInitCallback;
-
+    window.addEventListener('onresize', this.bgInitCallback);
+    window.addEventListener('onload', this.bgInitCallback);
+      
+    this.bgInitCallback();
     this._observeStyleChange();
   }
 
@@ -93,15 +95,19 @@ class Translucent {
   }
 
   _observeStyleChange() {
-    let originOffset = getOffset(this.element),
+    let bgElementStyle = window.getComputedStyle(this.bgElement, null),
+        originOffset = getOffset(this.element),
         originWidth = this.element.clientWidth,
-        originHeight = this.element.clientHeight;
+        originHeight = this.element.clientHeight,
+        originImg = bgElementStyle['backgroundImage'],
+        originFilter = bgElementStyle['filter'],
+        originAttatchment = bgElementStyle['backgroundAttachment'];
     
     this.styleObserver = new MutationObserver((mutations) => {
       for (let mutation of mutations) {
         if (originOffset.top !== this.element.offsetTop
             || originOffset.left !== this.element.offsetLeft) {
-          Styler.alignCardBackground(
+          this.styler.alignCardBackground(
             this.element,
             this.bgElement,
             this.cardBgStyle,
@@ -112,15 +118,22 @@ class Translucent {
         let height = this.element.clientHeight,
             width = this.element.clientWidth;
         
-        if (originHeight !== height || originWidth !== width) {
+        if (originHeight !== height
+            || originWidth !== width
+            || originImg !== bgElementStyle['backgroundImage']
+            || originFilter !== bgElementStyle['filter']
+            || originAttatchment !== bgElementStyle['backgroundAttachment']) {
           originWidth = width;
           originHeight = height;
-          Styler.cardBgInit(
+          originImg = bgElementStyle['backgroundImage'];
+          originFilter = bgElementStyle['filter'];
+          
+          this.styler.cardBgInit(
             this.element,
             this.bgElement,
             this.cardBgStyle,
             this.options.filterValue,
-            Styler.alignCardBackground
+            this.styler.alignCardBackground
           );
         }
         return;
@@ -135,6 +148,7 @@ class Translucent {
     }
 
     this.styleObserver.observe(this.element, config);
+    this.styleObserver.observe(this.bgElement, config);
   }
 
   /**
@@ -145,13 +159,18 @@ class Translucent {
    */
   blur(filterValue) {
     this.options.filterValue = filterValue;
-    Styler.cardBgInit(
+    this.styler.cardBgInit(
       this.element,
       this.bgElement,
       this.cardBgStyle,
       this.options.filterValue,
-      Styler.alignCardBackground
+      this.styler.alignCardBackground
     );
+  }
+
+  destroy() {
+    window.removeEventListener('onresize', this.bgInitCallback);
+    window.removeEventListener('onload', this.bgInitCallback);
   }
 }
 

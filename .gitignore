@@ -27,3 +27,5 @@ coverage/
 # misc
 npm-debug.log
 cookies.txt
+
+dist/main.js

@@ -2,7 +2,6 @@ export const isElement = (el) => {
   return el instanceof HTMLElement;
 }
 
-
 /**
   * Get HTMLElement from selector or HTMLElement
   * @param {string|HTMLElement} element Selector or element
@@ -23,27 +22,6 @@ export const isElement = (el) => {
     throw `element: ${element} is not exists`;
   }
 }
-
-export const STYLE_SHEET =
-`.tl-card-container {
-    border: rgba(200,200,200,0.5) solid 1px;
-    border-radius: 10px;
-    overflow: hidden;
-    position: relative;
-    transition: box-shadow 0.4s ease;
-  }
-
-  .tl-card-bg-container {
-    border-radius: 10px;
-    overflow: hidden;
-    position: relative;
-  } 
-
-  .tl-card-contents {
-    overflow: hidden;
-    position: relative;
-    border-radius: 10px;
-  }`;
 
 export const COLOR = {
   CLEAR: 'rgba(255,255,255,0)',
