@@ -142,7 +142,7 @@ $('.your-element').Translucent({
 
 ## Plugin description
 
-### .translucent( *selector* , [ *options* ] )
+### .Translucent( *selector* , [ *options* ] )
 Apply translucent card them to element.
 
 #### *Selector*
@@ -158,7 +158,7 @@ filterValue | `number` | 10 | This is blur value.
 cardColor | `string` | 'white' | Color of card. You can use preset or your own color. Preset : `'clear'`, `'white'`, `'grey'`, `'black'`
 shadow | `boolean` | true | This decides shadow effect of element. `true` applies effect.
 
-### .translucent( *'blur'* , *value* )
+### .Translucent( *'blur'* , *value* )
 Change amount of blur for background.
 
 #### *Value*
@@ -171,7 +171,7 @@ Change amount of blur for background.
 $('.your-element').Translucent('blur', 20);
 ```
 
-### .translucent( *'destroy'* )
+### .Translucent( *'destroy'* )
 Destroy translucent from the element.
 
 #### Example
