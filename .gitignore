@@ -25,6 +25,7 @@ Thumbs.db
 coverage/
 
 # misc
+package-lock.json
 npm-debug.log
 cookies.txt
 
