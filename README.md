@@ -26,7 +26,7 @@ Firefox 35.0 | Chrome 53.0  | Safari 6 | Edge 38.0 | Opera 40.0
 
 ### 1. Insert script into your HTML
 ```html
-<script src="https://cdn.jsdelivr.net/npm/translucent@1.0.11/dist/translucent.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/translucent@1.0.12/dist/translucent.min.js"></script>
 ```
 
 ### 2. Make your background element and card element in HTML
@@ -107,7 +107,7 @@ Translucent.destroy();
 ### 1. Insert script into your HTML
 ```html
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/translucent@1.0.11/dist/jquery.translucent.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/translucent@1.0.12/dist/jquery.translucent.min.js"></script>
 ```
 
 ### 2. Make your background element and card element in HTML
