@@ -1,6 +1,6 @@
 import * as _ from './translucent';
 
-var pluginName = 'translucent';
+var pluginName = 'Translucent';
 
 function Translucent(element, options) {
   let translucent = new _.Translucent(element, options);
